@@ -4,7 +4,7 @@
 # エスケープキー
 escape z
 
-# C-c で新しいスクリーンを開き、zshにする
+# C-z c で新しいスクリーンを開き、zshにする
 bind c screen zsh
 
 # Emacsキーバインド
