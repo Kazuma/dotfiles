@@ -24,14 +24,14 @@ if exists('&ambiwidth')
 " ウィンドウの幅より長い行は折り返して、次の行に続けて表示する
 set wrap
 
-" コマンドをステータス行に表示
+" 入力中のコマンドをステータス行に表示
 set showcmd
 
 " ステータスラインを常に表示
 set laststatus=2
 
 " ステータスラインに表示する情報の指定
-set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%4v(ASCII=%03.3b,HEX=%02.2B)\ %l/%L(%P)%m
+set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%{synIDattr(synID(line('.'),col('.'),1),'name')}\ %l/%L(%P)%m
 
 " マウスを使用可能にする
 set mouse=a
@@ -42,8 +42,11 @@ set t_Co=256
 " スキーマ指定
 colorscheme BlackSea
 
-" 検索時に大文字小文字を区別しない
+"検索文字列が小文字の場合は大文字小文字を区別なく検索する
 set ignorecase
+
+"検索文字列に大文字が含まれている場合は区別して検索する
+set smartcase
 
 " 最後まで検索したら先頭へ戻る
 set wrapscan
@@ -82,12 +85,11 @@ set vb t_vb=
 set wildmenu
 
 " 文字コードの設定
-" fileencodingsの設定ではencodingの値を一番最後に記述する
 set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
-set fileencodings=ucs-bom,euc-jp,cp932,iso-2022-jp
-set fileencodings+=,ucs-2le,ucs-2,utf-8
+set fileencodings=utf-8,ucs-bom,euc-jp,cp932,iso-2022-jp
+set fileencodings+=,ucs-2le,ucs-2
 
 " バックスペースですべて消せるように
 set backspace=indent,eol,start
@@ -147,9 +149,69 @@ inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 " Autocompletion using the TAB key
  
 function PHPLint()
-let result = system( &ft . ' -l ' . bufname(""))
-echo result
+    let result = system( &ft . ' -l ' . bufname(""))
+        echo result
 endfunction
 
 autocmd FileType php  :nmap ,l :call PHPLint()<CR>
 
+" TwitVim の設定
+let twitvim_login_b64 = "bV96dW1hOmdvcm8tc2Fu"
+let twitvim_count = 15
+
+nnoremap <C-w>h <C-w>h:call <SID>good_width()<Cr>
+nnoremap <C-w>l <C-w>l:call <SID>good_width()<Cr>
+nnoremap <C-w>H <C-w>H:call <SID>good_width()<Cr>
+nnoremap <C-w>L <C-w>L:call <SID>good_width()<Cr>
+function! s:good_width()
+    if winwidth(0) < 84
+        vertical resize 84
+    endif
+    endfunction
+
+" (),[],{},<>,””,’’,“入力+()の中にカーソル戻す
+imap {} {}<Left>
+imap [] []<Left>
+imap () ()<Left>
+imap “” “”<Left>
+imap ” ”<Left>
+imap <> <><Left>
+imap “ “<Left>
+
+" 行末の不要なスペースを削除する
+function! RTrim()
+"let s:cursor = getpos(“.”)
+%s/\s\+$//e
+"call setpos(“.”, s:cursor)
+endfunction
+autocmd BufWritePre *.php,*.rb,*.js,*.tpl,*.bat call RTrim()
+
+
+" Escの2回押しでハイライト消去
+nnoremap <Esc><Esc> :<C-u>set nohlsearch<Return>
+
+" Ctrl-iでヘルプ
+nnoremap <C-i>  :<C-u>help<Space>
+" " カーソル下のキーワードをヘルプでひく
+nnoremap <C-i><C-i> :<C-u>help<Space><C-r><C-w><Enter>
+
+" insertモードを抜けるとIMEオフ
+"set noimdisable
+"set iminsert=0 imsearch=0
+"set noimcmdline
+"inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
+
+" カーソル行のハイライト
+"set cursorline
+
+" カレントウィンドウにのみ罫線を引く
+"augroup cch
+"    autocmd! cch
+"    autocmd WinLeave * set nocursorline
+"    autocmd WinEnter,BufRead * set cursorline
+"augroup END
+
+"highlight CursorLine term=reverse cterm=reverse
+"set t_Co=256
+":hi clear CursorLine
+"hi CursorLine   term=reverse cterm=none ctermbg=242
