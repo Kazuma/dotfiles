@@ -1,0 +1,15 @@
+!_TAG_FILE_ENCODING	utf-8	//
+<Plug>(quicklaunch-0)	quicklaunch.jax	/*<Plug>(quicklaunch-0)*
+<Plug>(quicklaunch-1)	quicklaunch.jax	/*<Plug>(quicklaunch-1)*
+<Plug>(quicklaunch-9)	quicklaunch.jax	/*<Plug>(quicklaunch-9)*
+<Plug>(quicklaunch-list)	quicklaunch.jax	/*<Plug>(quicklaunch-list)*
+g:quicklaunch_commands	quicklaunch.jax	/*g:quicklaunch_commands*
+g:quicklaunch_no_default_key_mappings	quicklaunch.jax	/*g:quicklaunch_no_default_key_mappings*
+quicklaunch	quicklaunch.jax	/*quicklaunch*
+quicklaunch-changelog	quicklaunch.jax	/*quicklaunch-changelog*
+quicklaunch-contents	quicklaunch.jax	/*quicklaunch-contents*
+quicklaunch-interface	quicklaunch.jax	/*quicklaunch-interface*
+quicklaunch-introduction	quicklaunch.jax	/*quicklaunch-introduction*
+quicklaunch-key-mappings	quicklaunch.jax	/*quicklaunch-key-mappings*
+quicklaunch-settings	quicklaunch.jax	/*quicklaunch-settings*
+quicklaunch.txt	quicklaunch.jax	/*quicklaunch.txt*
