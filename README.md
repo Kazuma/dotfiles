@@ -8,13 +8,17 @@ Fork me on Github https://github.com/Kazuma/dotfiles/
 ## Files
 
 .screenrc
+
     my screen configuration
 
 .vim
+
     directory of file type configurations and plugins
 
 .vimrc
+
     my vim configuration
 
 .zshrc
+
     my zsh configuration
