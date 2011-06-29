@@ -1,8 +1,4 @@
-######################################
-## Environment variable configuration#
-######################################
-# LANG
-#
+# set LANG
 export TERM="xterm-256color"
 export LANG=ja_JP.UTF-8
 case ${UID} in
@@ -12,51 +8,66 @@ case ${UID} in
 esac
 
 
-## Default shell configuration
-#
-# set prompt
-#
-autoload -U colors
-colors
-case ${UID} in
-0)
-    PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') %B%{${fg[DarkRed]}%}%/#%{${reset_color}%}%b "
-    PROMPT2="%B%{${fg[red]}%}%_#%{${reset_color}%}%b "
-    SPROMPT="%B%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%}%b "
-    ;;
-*)
-    PROMPT="%{${fg[red]}%}%/%%%{${reset_color}%} "
-    PROMPT2="%{${fg[red]}%}%_%%%{${reset_color}%} "
-    SPROMPT="%{${fg[red]}%}%r is correct? [n,y,a,e]:%{${reset_color}%} "
-    [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] && 
-        PROMPT="%{${fg[cyan]}%}$(echo ${HOST%%.*} | tr '[a-z]' '[A-Z]') ${PROMPT}"
-    ;;
-esac
+# set autoload
+autoload zed
+autoload history-search-end
+autoload -U add-zsh-hook
+autoload -U compinit && compinit
+autoload -U colors && colors
+autoload -Uz vcs_info && vcs_info
 
-# screen時に、タブに最後に打ったコマンド名を表示する
+
+# set prompt configuration
+zstyle ':vcs_info:*' actionformats \
+    '%{$c8%}(%f%s)%{$c7%}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats \
+    "%{$c8%}%s%%{$c7%}❨ %{$c9%}%{$c11%}%b%{$c7%} ❩%{$reset_color%}%f "
+zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
+zstyle ':vcs_info:*' enable git
+
+add-zsh-hook precmd prompt_jnrowe_precmd
+
+prompt_jnrowe_precmd () {
+  if [ "${vcs_info_msg_0_}" = "" ]; then
+      PROMPT="${fg[red]}%B%/%#%{${reset_color}%}%{${fg[yellow]}%}[ (<ゝω・)綺羅星! ]
+%{${fg[green]}%}♪ "
+  fi
+}
+
+
+# load user .zshrc.mine configuration file
+[ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
+
+
+# load user perlbrew configuration file
+[ -d ${HOME}/perl5 ] && source ${HOME}/perl5/perlbrew/etc/bashrc
+
+
+# load user .zsh/ configuration other file
+local source_dir=$HOME/.zsh
+for source in `ls $source_dir/*.zsh`; do
+    source $source
+done
+
+
+# screen 時に、タブに最後に打ったコマンド名を表示する
 preexec () {
   [ ${STY} ] && echo -ne "\ek${1%% *}\e\\"
 }
 
 
-
-# 補完候補のメニュー選択で、矢印キーの代わりにhjklで移動
-#dload zsh/complist
-#bindkey -M menuselect 'h' vi-backward-char
-#bindkey -M menuselect 'j' vi-down-line-or-history
-#bindkey -M menuselect 'k' vi-up-line-or-history
-#bindkey -M menuselect 'l' vi-forward-char
+# 補完候補が多いときに尋ねる(0=自動)
+LISTMAX=0
 
 
 # ディレクトリ名を入力するだけでカレントディレクトリを変更
 setopt auto_cd
 
-# 移動した場所を記録し、cd -[TAB] で以前移動したディレクトリの候補を表示。
-# 番号を入力することで移動できる。
+# cd したら自動的に pushd する
 setopt auto_pushd
 
-# 補完時にスペルチェック
-#setopt auto_correct          
+# 重複したディレクトリを追加しない
+setopt pushd_ignore_dups
 
 # 自動修正機能(候補を表示)
 setopt correct
@@ -72,24 +83,6 @@ setopt auto_menu
 
 # 補完候補一覧でファイルの種別を識別マーク表示(ls -Fの記号)
 setopt list_types
-
-# lsコマンドの補完候補にも色付き表示
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
-# killの候補にも色付き表示
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
-
-# 補完の時に大文字小文字を区別しない
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
-# apt-get とかdpkgコマンドをキャッシュを使って速くする
-zstyle ':completion:*' use-cache true
-
-# セパレータを設定する
-zstyle ':completion:*' list-separator '-->'
-
-# オプション補完で解説部分を表示しない
-zstyle ' :completion:*' verbose no
 
 # = 以降でも補完できるようにする( --prefix=/usr 等の場合)
 setopt magic_equal_subst
@@ -118,28 +111,62 @@ setopt hist_ignore_dups
 # 重複するコマンドが保存されるとき、古い方を削除する
 setopt hist_save_no_dups
 
-# 補完候補が多いときに尋ねる(0=自動)
-LISTMAX=0
-
-## Keybind configuration
-# Emacsライクキーバインド
-bindkey -e
-
 # カッコの対応などを自動補完
 setopt auto_param_keys
 
 # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
 setopt auto_param_slash
 
+# / の2重入力を回避する
+setopt auto_remove_slash
+
+# aliased ls needs if file/dir completions work
+setopt complete_aliases
 
 
+# ls コマンドの補完候補にも色付き表示
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+# kill の候補にも色付き表示
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
+
+# 補完の時に大文字小文字を区別しない
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# apt-get とか dpkg コマンドをキャッシュを使って速くする
+zstyle ':completion:*' use-cache true
+
+# セパレータを設定する
+zstyle ':completion:*' list-separator '-->'
+
+# オプション補完で解説部分を表示しない
+zstyle ' :completion:*' verbose no
+
+# sudo の後ろでコマンド名を補完する
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+
+
+# Command history configuration
+HISTFILE=${HOME}/.zsh_history
+HISTSIZE=50000                    # 記録されるコマンド履歴の数
+SAVEHIST=50000                    # 保存されるコマンド履歴の数
+setopt hist_ignore_dups           # 重複するコマンドが記録されている場合、古い方を削除
+setopt share_history              # rootは履歴を保存しない
+setopt hist_ignore_space          # スペースから始まるコマンド行はヒストリに残さない
+
+# カーソル移動
 bindkey "^[[1~" beginning-of-line # Home gets to line head
-bindkey "^[[4~" end-of-line # End gets to line end
-bindkey "^[[3~" delete-char # Del
+bindkey "^[[4~" end-of-line       # End gets to line end
+bindkey "^[[3~" delete-char       # Del
+
+# Keybind configuration
+bindkey -e
+
+# reverse menu completion binded to Shift-Tab
+bindkey "\e[Z" reverse-menu-complete
+
 
 # historical backward/forward search with linehead string binded to ^P/^N
-#
-autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^p" history-beginning-search-backward-end
@@ -147,68 +174,21 @@ bindkey "^n" history-beginning-search-forward-end
 bindkey "\\ep" history-beginning-search-backward-end
 bindkey "\\en" history-beginning-search-forward-end
 
-# reverse menu completion binded to Shift-Tab
-#
-bindkey "\e[Z" reverse-menu-complete
 
-
-## Command history configuration
-#
-HISTFILE=${HOME}/.zsh_history
-HISTSIZE=50000              # 記録されるコマンド履歴の数
-SAVEHIST=50000              # 保存されるコマンド履歴の数
-setopt hist_ignore_dups     # 重複するコマンドが記録されている場合、古い方を削除
-setopt share_history        # rootは履歴を保存しない
-
-## Completion configuration
-#
-fpath=(${HOME}/.zsh/functions/Completion ${fpath})
-
-# 標準の補完設定
-autoload -U compinit
-compinit
-
-# zsh editor
-autoload zed
-
-## Prediction configuration
-#
-#autoload predict-on
-#predict-off
-
-
-## Alias configuration
-#
-# expand aliases before completing
-#
-setopt complete_aliases     # aliased ls needs if file/dir completions work
-
+# Alias configuration
 alias where="command -v"
-alias j="jobs -l"
 
-case "${OSTYPE}" in
-freebsd*|darwin*)
-    alias ls="ls -G -w"
-    ;;
-linux*)
-    alias ls="ls --color"
-    ;;
-esac
-
-alias la="ls -a"
-alias lf="ls -F"
-alias ll="ls -l"
-
+alias rm="trash"                  # ファイル削除時にすぐ削除ではなく,ゴミ箱へ移動する(trash-cli 要インストール)
+alias ls="ls -F --color"
 alias du="du -h"
 alias df="df -h"
-
 alias su="su -l"
 alias w3m="w3m http://www.google.co.jp"
 alias termtter="./termtter/bin/termtter"
+alias gnome-terminal="VTE_CJK_WIDTH=auto; gnome-terminal --disable-factory"
 
 
-## terminal configuration
-#
+# terminal configuration
 case "${TERM}" in
 screen)
     TERM=xterm
@@ -244,7 +224,6 @@ jfbterm-color)
 esac
 
 # set terminal title including current directory
-#
 case "${TERM}" in
 xterm|xterm-color|kterm|kterm-color)
     precmd() {
@@ -253,20 +232,20 @@ xterm|xterm-color|kterm|kterm-color)
     ;;
 esac
 
-function ssh_screen(){
- eval server=?${$#}
-  screen -t $server ssh "$@"
+# set ssh servername on screen
+function ssh_on_screen() {
+    if [ $WINDOW ]; then
+        cd $HOME
+        eval server=\${$#}
+        screen -t $server ssh "$@"
+        cd -
+    else
+        command ssh "$@"
+    fi
 }
-if [ x$TERM = xscreen ]; then
-  alias ssh=ssh_screen
-fi
 
-if [ "$TERM" = "screen" ]; then
-  precmd(){print -n '\ek\e\\'}
-fi
+# cdd で screen の別 Window のカレントディレクトリへ移動する
+function chpwd() { _reg_pwd_screennum }
 
-
-## load user .zshrc configuration file
-#
-[ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
-
+# cd を実行後 ls する
+function chpwd() { ls --color=auto }
