@@ -22,3 +22,7 @@ Fork me on Github https://github.com/Kazuma/dotfiles/
 .zshrc
 
     my zsh configuration
+
+.perltidyrc
+
+    my Perl::Tidy configuration
