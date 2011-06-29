@@ -1,0 +1,11 @@
+-pbp
+-ce      # else の前で改行しない
+-l=100   # 指定文字数で自動改行
+-i=4     # インデント 4
+#-vt=0   # vertical tightness
+#-sfp
+#-skp
+#-nsfs
+#-nolq
+# Break before all operators
+#-wbb="% + - * / x != == >= <= =~ !~ < > | & >= < = **= += *= &= <<= &&= -= /= |= >>= ||= .= %= ^= x="
