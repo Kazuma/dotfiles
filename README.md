@@ -7,13 +7,21 @@ Fork me on Github https://github.com/Kazuma/dotfiles/
 
 ## Files
 
-.screenrc
-
-    my screen configuration
-
 .vim
 
     directory of file type configurations and plugins
+
+.zsh
+
+    directory of file type configurations and plugins
+
+.perltidyrc
+
+    my Perl::Tidy configuration
+
+.screenrc
+
+    my screen configuration
 
 .vimrc
 
@@ -22,7 +30,3 @@ Fork me on Github https://github.com/Kazuma/dotfiles/
 .zshrc
 
     my zsh configuration
-
-.perltidyrc
-
-    my Perl::Tidy configuration
