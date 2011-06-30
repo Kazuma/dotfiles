@@ -38,13 +38,16 @@ prompt_jnrowe_precmd () {
 # load user .zshrc.mine configuration file
 [ -f ${HOME}/.zshrc.mine ] && source ${HOME}/.zshrc.mine
 
-
 # load user perlbrew configuration file
 [ -d ${HOME}/perl5 ] && source ${HOME}/perl5/perlbrew/etc/bashrc
 
+# load user pythonbrew configuration file
+[ -d ${HOME}/.pythonbrew ] && source ${HOME}/.pythonbrew/etc/bashrc
+[ -d ${HOME}/.pythonbrew ] && source ${HOME}/.pythonbrew/pythons/Python-2.6.6/bin/virtualenvwrapper.sh
+
 
 # load user .zsh/ configuration other file
-local source_dir=$HOME/.zsh
+local source_dir=${HOME}/.zsh
 for source in `ls $source_dir/*.zsh`; do
     source $source
 done
@@ -235,7 +238,7 @@ esac
 # set ssh servername on screen
 function ssh_on_screen() {
     if [ $WINDOW ]; then
-        cd $HOME
+        cd ${HOME}
         eval server=\${$#}
         screen -t $server ssh "$@"
         cd -
