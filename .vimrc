@@ -3,7 +3,6 @@ set rtp+=~/.vim/vundle.git/
 call vundle#rc()
 
 " Bundle
-Bundle 'gtd'
 Bundle 'tags'
 Bundle 'perl'
 Bundle 'jQuery'
@@ -15,18 +14,14 @@ Bundle 'quicklaunch'
 Bundle 'vim-markdown'
 Bundle 'neocomplcache'
 Bundle 'PHP-dictionary'
-Bundle 'GoogleSuggest-Complete'
+Bundle 't9md/vim-textmanip'
 Bundle 'bw.vim'
 Bundle 'php.vim'
 Bundle 'perl.vim'
 Bundle 'unite.vim'
 Bundle 'calendar.vim'
 Bundle 'quickrun.vim'
-Bundle 'javascript.vim'
-Bundle 'googletasks-vim'
-Bundle 'GoogleReader.vim'
 Bundle 'howm-calendar.vim'
-Bundle 'git://github.com/mattn/webapi-vim.git'
 
 " ソフトタブの設定
 set expandtab
@@ -275,10 +270,16 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ 'php' : $HOME.'/.vim/bundle/PHP-dictionary/php.dict'
     \ }
 
-" GoogleReader.vim の設定
-let g:googlereader_email = 'muramatu.k@gmail.com'
-let g:googlereader_passwd = '*****'
+" vim-textmanip の設定
+" 選択したテキストの移動
+ vmap <C-j> <Plug>(Textmanip.move_selection_down)
+ vmap <C-k> <Plug>(Textmanip.move_selection_up)
+ vmap <C-h> <Plug>(Textmanip.move_selection_left)
+ vmap <C-l> <Plug>(Textmanip.move_selection_right)
 
+" 行の複製
+ vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
+ nmap <M-d> <Plug>(Textmanip.duplicate_selection_n)
 
 "===============================================
 " PHP
