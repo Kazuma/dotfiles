@@ -30,7 +30,7 @@ add-zsh-hook precmd prompt_jnrowe_precmd
 prompt_jnrowe_precmd () {
   if [ "${vcs_info_msg_0_}" = "" ]; then
       PROMPT="${fg[red]}%B%/%#%{${reset_color}%}%{${fg[yellow]}%}[ (<ゝω・)綺羅星! ]
-%{${fg[green]}%}♪ "
+%{${fg[green]}%}✈ "
   fi
 }
 
