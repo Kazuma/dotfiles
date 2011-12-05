@@ -3,6 +3,7 @@ set rtp+=~/.vim/vundle.git/
 call vundle#rc()
 
 " Bundle
+"" plugin
 Bundle 'tags'
 Bundle 'perl'
 Bundle 'jQuery'
@@ -14,14 +15,13 @@ Bundle 'quicklaunch'
 Bundle 'vim-markdown'
 Bundle 'neocomplcache'
 Bundle 'PHP-dictionary'
+Bundle 'open-browser.vim'
 Bundle 't9md/vim-textmanip'
-Bundle 'bw.vim'
-Bundle 'php.vim'
-Bundle 'perl.vim'
-Bundle 'unite.vim'
-Bundle 'calendar.vim'
+Bundle 'Highlight-UnMatched-Brackets'
 Bundle 'quickrun.vim'
-Bundle 'howm-calendar.vim'
+"" unite plugin
+Bundle 'unite.vim'
+Bundle 'unite-colorscheme'
 
 " ソフトタブの設定
 set expandtab
@@ -208,11 +208,6 @@ nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
 
-"バッファを開いた時に、カレントディレクトリを自動で移動
-":au BufEnter *.pl,*.pm,*.cgi,*.yaml,*.json,*.txt,*.tt execute ":lcd " .
-"expand("%:p:h")
-
-
 "===============================================
 " Plugin
 "===============================================
@@ -224,7 +219,7 @@ autocmd BufRead,BufNewFile *.mkdn     setfiletype mkd
 autocmd BufRead,BufNewFile *.mdown    setfiletype mkd
 autocmd BufRead,BufNewFile *.markdown setfiletype mkd
 
-" qfixapp の設定
+" qfixapp
 set runtimepath+=~/.vim/bundle/qfixapp/ftplugin/qfixapp          " qfixapp に runtimepath を通す
 let QFixHowm_Key = 'g'                                           " キーマップリーダー
 let QFixHowm_RootDir = '~/Dropbox/howm'                          " howm_dir ルートディレクトリ
@@ -237,9 +232,6 @@ let howm_fileformat = 'unix'                                     " ファイル�
 let mygrepprg = 'grep'                                           " 内蔵 grep
 let QFixHowm_SchedulePreview = 0                                 " 予定・TODO でのプレビュー表示 ON/OFF
 let QFixHowm_ReminderSortMode = 1                                " 予定・TODOソートの昇順/降順
-let QFixHowm_VimEnterCmd = 'y'                                   " 初回起動時に実行したいコマンド
-let QFixHowm_VimEnterMsg = '今日の予定です'                      " 自動起動コマンド表示の確認用メッセージ
-let QFixHowm_VimEnterFile = '~/Dropbox/howm/.vimenter.qf'        " 初回起動時間を保存するファイル名
 let SubWindow_Title = '~/__submenu__.howm'                       " サブメニューで表示するファイル名
 let SubWindow_Width = 30                                         " サブメニューの幅指定
 let QFixHowm_ShowTodayLine = 2                                   " 予定や TODO に現在日付行や現在時刻行、境界行を表示する
@@ -254,46 +246,45 @@ let QFixHowm_ReminderHolidayName = '元日\|成人の日\|建国記念の日\|�
 let QFixHowm_DayOfWeekDic = {'Sun' : "日", 'Mon' : "月", 'Tue' : "火", 'Wed' : "水", 'Thu' : "木", 'Fri' : "金", 'Sat' : "土"}
 let QFixHowm_DayOfWeekReg = "\(日\|月\|火\|水\|木\|金\|土\)"
 
-" calendar.vim の設定
-nnoremap g,q :Calendar<CR>
-let calendar_action = "QFixHowmCalendarDiary"
-let calendar_sign   = "QFixHowmCalendarSign"
-
-" Neocomplcache の設定
-let g:neocomplcache_enable_at_startup = 1                       " Neocomplcache の自動起動設定
-let g:neocomplcache_max_list = 50                               " Neocomplcache のリスト表示件数
-let g:neocomplcache_max_filename_width = 15                     " Neocomplcache の表示文字数
-let g:neocomplcache_auto_completion_start_length = 1            " Neocomplcache のリスト表示開始文字数
+" Neocomplcache
+let g:neocomplcache_enable_at_startup = 1                       " 自動起動設定
+let g:neocomplcache_max_list = 50                               " リスト表示件数
+let g:neocomplcache_max_filename_width = 15                     " 表示文字数
+let g:neocomplcache_auto_completion_start_length = 1            " リスト表示開始文字数
+let g:neocomplcache_enable_underbar_completion = 1              " _ 区切りの補完を有効化
+let g:neocomplcache_min_syntax_length = 3                       " シンタックスのキャッシュの最小文字長
 let g:neocomplcache_enable_smart_case = 1                       " Use smartcase.
+let g:neocomplcache_enable_camel_case_completion = 1            " Use camelcase.
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : '' ,
-    \ 'php' : $HOME.'/.vim/bundle/PHP-dictionary/php.dict'
+    \ 'php' : $HOME.'/.vim/bundle/PHP-dictionary/php.dict',
+    \ 'pl' : $HOME.'/.vim/bundle/perl/perl_functions.dict',
     \ }
+"" Enter で Snippet を展開
+imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 
-" vim-textmanip の設定
-" 選択したテキストの移動
- vmap <C-j> <Plug>(Textmanip.move_selection_down)
- vmap <C-k> <Plug>(Textmanip.move_selection_up)
- vmap <C-h> <Plug>(Textmanip.move_selection_left)
- vmap <C-l> <Plug>(Textmanip.move_selection_right)
+" vim-textmanip
+"" 選択したテキストの移動
+vmap <C-j> <Plug>(Textmanip.move_selection_down)
+vmap <C-k> <Plug>(Textmanip.move_selection_up)
+vmap <C-h> <Plug>(Textmanip.move_selection_left)
+vmap <C-l> <Plug>(Textmanip.move_selection_right)
 
-" 行の複製
- vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
- nmap <M-d> <Plug>(Textmanip.duplicate_selection_n)
+"" 行の複製
+vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
+nmap <M-d> <Plug>(Textmanip.duplicate_selection_n)
 
 "===============================================
 " PHP
 "===============================================
 
 " php の関数辞書
-autocmd FileType php  :set dictionary=~/.vim/bundle/php/dict/php.dict
 autocmd FileType php  :nmap ,l :call PHPLint()<CR>
 
 function PHPLint()
     let result = system( &ft . ' -l ' . bufname(""))
         echo result
 endfunction
-
 
 "===============================================
 " Perl
@@ -302,5 +293,3 @@ endfunction
 " perltidy
 map ,pt <ESC>:%! perltidy<CR>
 map ,ptv <ESC>:%'<, '>! perltidy<CR>
-" Perl 辞書ファイル読み込み
-autocmd FileType perl :set dictionary+=~/.vim/bundle/perl/dict/perl_functions.dict
