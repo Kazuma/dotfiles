@@ -3,22 +3,26 @@ set rtp+=~/.vim/vundle.git/
 call vundle#rc()
 
 " Bundle
-"" plugin
 Bundle 'tags'
 Bundle 'perl'
 Bundle 'jQuery'
-Bundle 'qfixapp'
 Bundle 'vim-ref'
+Bundle 'altercmd'
 Bundle 'pathogen'
 Bundle 'auto_mkdir'
-Bundle 'quicklaunch'
-Bundle 'vim-markdown'
 Bundle 'neocomplcache'
 Bundle 'PHP-dictionary'
 Bundle 'open-browser.vim'
 Bundle 't9md/vim-textmanip'
 Bundle 'Highlight-UnMatched-Brackets'
+"" quick plugin
+Bundle 'qfixapp'
+Bundle 'quicklaunch'
 Bundle 'quickrun.vim'
+"" markdown plugin
+Bundle 'Markdown'
+Bundle 'vim-markdown'
+Bundle 'Markdown-syntax'
 "" unite plugin
 Bundle 'unite.vim'
 Bundle 'unite-colorscheme'
@@ -159,9 +163,6 @@ set backspace=indent,eol,start
 " Enterを押したときに補完のポップアップを消す
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>\<CR>":"\<CR>"
 
-" プラグインを使えるようにする
-filetype plugin on
-
 " <TAB>で補完
 function! InsertTabWrapper()
     let col = col('.') - 1
@@ -212,12 +213,16 @@ nmap g# g#zz
 " Plugin
 "===============================================
 
-" Markdown の拡張子設定
-autocmd BufRead,BufNewFile *.md       setfiletype mkd
-autocmd BufRead,BufNewFile *.mkd      setfiletype mkd
-autocmd BufRead,BufNewFile *.mkdn     setfiletype mkd
-autocmd BufRead,BufNewFile *.mdown    setfiletype mkd
-autocmd BufRead,BufNewFile *.markdown setfiletype mkd
+" プラグインを使えるようにする
+filetype plugin on
+
+" Markdown.vim
+"" Markdown の拡張子設定
+autocmd BufRead,BufNewFile *.md       setfiletype markdown
+autocmd BufRead,BufNewFile *.mkd      setfiletype markdown
+autocmd BufRead,BufNewFile *.mkdn     setfiletype markdown
+autocmd BufRead,BufNewFile *.mdown    setfiletype markdown
+autocmd BufRead,BufNewFile *.markdown setfiletype markdown
 
 " qfixapp
 set runtimepath+=~/.vim/bundle/qfixapp/ftplugin/qfixapp          " qfixapp に runtimepath を通す
@@ -260,7 +265,7 @@ let g:neocomplcache_dictionary_filetype_lists = {
     \ 'php' : $HOME.'/.vim/bundle/PHP-dictionary/php.dict',
     \ 'pl' : $HOME.'/.vim/bundle/perl/perl_functions.dict',
     \ }
-"" Enter で Snippet を展開
+"" Ctrl + l で Snippet を展開
 imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 
 " vim-textmanip
@@ -273,6 +278,14 @@ vmap <C-l> <Plug>(Textmanip.move_selection_right)
 "" 行の複製
 vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
 nmap <M-d> <Plug>(Textmanip.duplicate_selection_n)
+
+" open-browser.vim
+nmap <Space>op <Plug>(openbrowser-smart-search)
+vmap <Space>op <Plug>(openbrowser-smart-search)
+
+" quickrun
+let g:quickrun_config = {}
+let g:quickrun_config['markdown'] = {'outputter':'browser'}
 
 "===============================================
 " PHP
