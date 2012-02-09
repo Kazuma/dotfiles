@@ -1,3 +1,0 @@
-twitvim-0.5.3.vba: call delete('/home/kazuma/.vim/plugin/twitvim.vim')|call delete('/home/kazuma/.vim/doc/twitvim.txt')
-twitvim-0.5.2.vba: call delete('/home/kazuma/.vim/plugin/twitvim.vim')|call delete('/home/kazuma/.vim/doc/twitvim.txt')
-twitvim-0.5.5.vba: call delete('/home/kazuma/.vim/plugin/twitvim.vim')|call delete('/home/kazuma/.vim/doc/twitvim.txt')
