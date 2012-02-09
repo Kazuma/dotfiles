@@ -1,31 +1,40 @@
-" vundle の設定
-set rtp+=~/.vim/vundle.git/ 
-call vundle#rc()
+" NeoBundle の設定
+set rtp+=~/.vim/neobundle.vim.git/ 
+call neobundle#rc()
 
-" Bundle
-Bundle 'tags'
-Bundle 'perl'
-Bundle 'jQuery'
-Bundle 'vim-ref'
-Bundle 'altercmd'
-Bundle 'pathogen'
-Bundle 'auto_mkdir'
-Bundle 'neocomplcache'
-Bundle 'PHP-dictionary'
-Bundle 'open-browser.vim'
-Bundle 't9md/vim-textmanip'
-Bundle 'Highlight-UnMatched-Brackets'
+" plugin
+NeoBundle 'tags'
+NeoBundle 'perl'
+NeoBundle 'jQuery'
+NeoBundle 'vim-ref'
+NeoBundle 'altercmd'
+NeoBundle 'neco-look'
+NeoBundle 'auto_mkdir'
+NeoBundle 'neocomplcache'
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'PHP-dictionary'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'open-browser.vim'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 't9md/vim-textmanip'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'mattn/learn-vimscript'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'Highlight-UnMatched-Brackets'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 "" quick plugin
-Bundle 'qfixapp'
-Bundle 'quicklaunch'
-Bundle 'quickrun.vim'
+NeoBundle 'qfixapp'
+NeoBundle 'quicklaunch'
+NeoBundle 'quickrun.vim'
 "" markdown plugin
-Bundle 'Markdown'
-Bundle 'vim-markdown'
-Bundle 'Markdown-syntax'
+NeoBundle 'Markdown'
+NeoBundle 'vim-markdown'
+NeoBundle 'Markdown-syntax'
 "" unite plugin
-Bundle 'unite.vim'
-Bundle 'unite-colorscheme'
+NeoBundle 'unite.vim'
+NeoBundle 'unite-colorscheme'
+NeoBundle 'tukkee/unite-help'
+NeoBundle 'mattn/unite-mcdonalds-vim'
 
 " ソフトタブの設定
 set expandtab
@@ -46,8 +55,7 @@ filetype indent on
 set smartindent
 
 " if(){} などのインデント
-set cindent
-
+set cindent 
 " 入力中のコマンドをステータス行に表示
 set showcmd
 
@@ -201,6 +209,9 @@ autocmd BufWritePre *.php,*.rb,*.js,*.tpl,*.ihtml,*.bat,*.pl,*.pm call RTrim()
 nnoremap <Esc><Esc> :<C-u>set nohlsearch<Return>
 nnoremap / :<C-u>set hlsearch<Return>/
 
+" ノーマルモードで改行する
+noremap <CR> o<ESC>
+
 " マッチ文字列が画面の真ん中にくるようにする
 nmap n nzz
 nmap N Nzz
@@ -208,6 +219,9 @@ nmap * *zz
 nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
+
+" gf で HTML から JavaScript ファイルを開く(スラッシュで始まる相対 URL に対応)
+autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
 
 "===============================================
 " Plugin
@@ -285,13 +299,26 @@ vmap <Space>op <Plug>(openbrowser-smart-search)
 
 " quickrun
 let g:quickrun_config = {}
-let g:quickrun_config['markdown'] = {'outputter':'browser'}
+let g:quickrun_config['markdown'] = {
+      \ 'type': 'markdown/pandoc',
+      \ 'outputter': 'browser',
+      \ 'cmdopt': '-s'
+      \ }
+
+" vimfiler
+let g:vimfiler_as_default_explorer = 1
+call vimfiler#set_execute_file('vim', 'vim')
+call vimfiler#set_execute_file('txt', 'vim')
+
+" unite.vim
+au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 
 "===============================================
 " PHP
 "===============================================
 
-" php の関数辞書
+" function dictionary
 autocmd FileType php  :nmap ,l :call PHPLint()<CR>
 
 function PHPLint()
