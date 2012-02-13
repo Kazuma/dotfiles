@@ -11,17 +11,17 @@ NeoBundle 'altercmd'
 NeoBundle 'neco-look'
 NeoBundle 'auto_mkdir'
 NeoBundle 'neocomplcache'
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'git://github.com/Shougo/vimproc'
 NeoBundle 'PHP-dictionary'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'open-browser.vim'
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 't9md/vim-textmanip'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'mattn/learn-vimscript'
-NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'git://github.com/Shougo/vimfiler'
+NeoBundle 'git://github.com/tyru/open-browser.vim'
+NeoBundle 'git://github.com/mattn/webapi-vim'
+NeoBundle 'git://github.com/t9md/vim-textmanip'
+NeoBundle 'git://github.com/scrooloose/syntastic'
+NeoBundle 'git://github.com/mattn/learn-vimscript'
+NeoBundle 'git://github.com/kchmck/vim-coffee-script'
 NeoBundle 'Highlight-UnMatched-Brackets'
-NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'git://github.com/nathanaelkane/vim-indent-guides'
 "" quick plugin
 NeoBundle 'qfixapp'
 NeoBundle 'quicklaunch'
@@ -33,8 +33,8 @@ NeoBundle 'Markdown-syntax'
 "" unite plugin
 NeoBundle 'unite.vim'
 NeoBundle 'unite-colorscheme'
-NeoBundle 'tukkee/unite-help'
-NeoBundle 'mattn/unite-mcdonalds-vim'
+NeoBundle 'git://github.com/tukkee/unite-help'
+NeoBundle 'git://github.com/mattn/unite-mcdonalds-vim'
 
 " ソフトタブの設定
 set expandtab
@@ -167,6 +167,21 @@ set fileencodings=utf-8,ucs-bom,euc-jp,cp932,iso-2022-jp
 
 " バックスペースですべて消せるように
 set backspace=indent,eol,start
+
+" カーソル行をハイライト
+set cursorline
+
+" カレントウィンドウにのみ罫線を引く
+augroup cch
+    autocmd! cch
+    autocmd WinLeave * set nocursorline
+    auto WinEnter,BufRead * set cursorline
+augroup END
+
+" カーソル行を反転させる
+hi clear CursorLine
+hi CursoLine gui=underline
+highlight CursorLine term=reverse cterm=none ctermbg=234
 
 " Enterを押したときに補完のポップアップを消す
 inoremap <expr> <CR> pumvisible() ? "\<C-Y>\<CR>":"\<CR>"
