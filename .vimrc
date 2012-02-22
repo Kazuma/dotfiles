@@ -324,10 +324,15 @@ let g:quickrun_config['markdown'] = {
 let g:vimfiler_as_default_explorer = 1
 call vimfiler#set_execute_file('vim', 'vim')
 call vimfiler#set_execute_file('txt', 'vim')
+nnoremap <silent> <C-u>f :VimFilerSplit -horizontal<CR>
 
 " unite.vim
 au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+
+" syntastic
+let g:syntastic_enable_signs  = 1
+let g:syntastic_auto_loc_list = 2
 
 "===============================================
 " PHP
