@@ -11,16 +11,18 @@ NeoBundle 'altercmd'
 NeoBundle 'neco-look'
 NeoBundle 'auto_mkdir'
 NeoBundle 'neocomplcache'
-NeoBundle 'git://github.com/Shougo/vimproc'
 NeoBundle 'PHP-dictionary'
+NeoBundle 'Highlight-UnMatched-Brackets'
+NeoBundle 'git://github.com/Shougo/vimproc'
 NeoBundle 'git://github.com/Shougo/vimfiler'
-NeoBundle 'git://github.com/tyru/open-browser.vim'
 NeoBundle 'git://github.com/mattn/webapi-vim'
 NeoBundle 'git://github.com/t9md/vim-textmanip'
 NeoBundle 'git://github.com/scrooloose/syntastic'
+NeoBundle 'git://github.com/mattn/benchvimrc-vim'
 NeoBundle 'git://github.com/mattn/learn-vimscript'
+NeoBundle 'git://github.com/tyru/open-browser.vim'
+NeoBundle 'git://github.com/glidenote/memolist.vim'
 NeoBundle 'git://github.com/kchmck/vim-coffee-script'
-NeoBundle 'Highlight-UnMatched-Brackets'
 NeoBundle 'git://github.com/nathanaelkane/vim-indent-guides'
 "" quick plugin
 NeoBundle 'qfixapp'
@@ -334,17 +336,32 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split
 let g:syntastic_enable_signs  = 1
 let g:syntastic_auto_loc_list = 2
 
+" memolist.vim
+"" メモを新規作成
+map <Leader>mn  :MemoNew<CR>
+"" メモ一覧
+map <Leader>ml  :MemoList<CR>
+"" メモ検索
+map <Leader>mg  :MemoGrep<CR>
+let g:memolist_path = "Dropbox/howm/memo"                     " ディレクトリを指定
+let g:memolist_memo_suffix = "md"                             " ファイルタイプ
+let g:memolist_prompt_prompt_tags = 0                         " タグ
+let g:memolist_prompt_categories = 1                          " カテゴリ
+let g:memolist_memo_date = "%Y-%m-%d %H:%M"                   " 日付形式
+let memolist_vimfiler = 1                                     " vimfiler 使用有無
+let g:memolist_template_dir_path = "Dropbox/howm/template"    " テンプレートファイルパス
+
 "===============================================
 " PHP
 "===============================================
 
 " function dictionary
-autocmd FileType php  :nmap ,l :call PHPLint()<CR>
+"autocmd FileType php  :nmap ,l :call PHPLint()<CR>
 
-function PHPLint()
-    let result = system( &ft . ' -l ' . bufname(""))
-        echo result
-endfunction
+"function PHPLint()
+"    let result = system( &ft . ' -l ' . bufname(""))
+"        echo result
+"endfunction
 
 "===============================================
 " Perl
