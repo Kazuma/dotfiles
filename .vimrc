@@ -13,6 +13,7 @@ NeoBundle 'auto_mkdir'
 NeoBundle 'neocomplcache'
 NeoBundle 'PHP-dictionary'
 NeoBundle 'Highlight-UnMatched-Brackets'
+NeoBundle 'git://github.com/vim-scripts/L9'
 NeoBundle 'git://github.com/Shougo/vimproc'
 NeoBundle 'git://github.com/Shougo/vimfiler'
 NeoBundle 'git://github.com/mattn/webapi-vim'
@@ -22,6 +23,7 @@ NeoBundle 'git://github.com/mattn/benchvimrc-vim'
 NeoBundle 'git://github.com/mattn/learn-vimscript'
 NeoBundle 'git://github.com/tyru/open-browser.vim'
 NeoBundle 'git://github.com/glidenote/memolist.vim'
+NeoBundle 'git://github.com/vim-scripts/FuzzyFinder'
 NeoBundle 'git://github.com/kchmck/vim-coffee-script'
 NeoBundle 'git://github.com/nathanaelkane/vim-indent-guides'
 "" quick plugin
@@ -350,6 +352,9 @@ let g:memolist_prompt_categories = 1                          " カテゴリ
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"                   " 日付形式
 let memolist_vimfiler = 1                                     " vimfiler 使用有無
 let g:memolist_template_dir_path = "Dropbox/howm/template"    " テンプレートファイルパス
+
+" FuzzyFinder
+nmap mf :FufFile <C-r>=expand(g:memolist_path."/")<CR><CR>
 
 "===============================================
 " PHP
