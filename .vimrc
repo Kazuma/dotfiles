@@ -250,7 +250,6 @@ autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | se
 filetype plugin on
 
 " Markdown.vim
-"" Markdown の拡張子設定
 autocmd BufRead,BufNewFile *.md       setfiletype markdown
 autocmd BufRead,BufNewFile *.mkd      setfiletype markdown
 autocmd BufRead,BufNewFile *.mkdn     setfiletype markdown
@@ -307,7 +306,6 @@ vmap <C-j> <Plug>(Textmanip.move_selection_down)
 vmap <C-k> <Plug>(Textmanip.move_selection_up)
 vmap <C-h> <Plug>(Textmanip.move_selection_left)
 vmap <C-l> <Plug>(Textmanip.move_selection_right)
-
 "" 行の複製
 vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
 nmap <M-d> <Plug>(Textmanip.duplicate_selection_n)
@@ -323,6 +321,10 @@ let g:quickrun_config['markdown'] = {
       \ 'outputter': 'browser',
       \ 'cmdopt': '-s'
       \ }
+let g:quickrun_config['rst'] = {
+    \ 'command': 'rst2html',
+    \ 'outputter': 'browser',
+    \ }
 
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
@@ -340,33 +342,27 @@ let g:syntastic_auto_loc_list = 2
 
 " memolist.vim
 "" メモを新規作成
-map <Leader>mn  :MemoNew<CR>
+nmap ,mc :MemoNew<CR>
 "" メモ一覧
-map <Leader>ml  :MemoList<CR>
+nmap ,ml :MemoList<CR>
 "" メモ検索
-map <Leader>mg  :MemoGrep<CR>
-let g:memolist_path = "Dropbox/howm/memo"                     " ディレクトリを指定
-let g:memolist_memo_suffix = "md"                             " ファイルタイプ
-let g:memolist_prompt_prompt_tags = 0                         " タグ
-let g:memolist_prompt_categories = 1                          " カテゴリ
-let g:memolist_memo_date = "%Y-%m-%d %H:%M"                   " 日付形式
-let memolist_vimfiler = 1                                     " vimfiler 使用有無
-let g:memolist_template_dir_path = "Dropbox/howm/template"    " テンプレートファイルパス
+nmap ,mg :MemoGrep<CR>
+let g:memolist_path = "~/Dropbox/howm/memo"                    " ディレクトリを指定
+let g:memolist_template_dir_path = "~/.vim/template/memolist"  " テンプレートファイルパス
+let g:memolist_memo_suffix = "markdown"                        " ファイルタイプ
+let g:memolist_memo_date = "%Y-%m-%d %H:%M"                    " 日付形式
+let g:memolist_prompt_tags = 0                                 " タグ
+let g:memolist_prompt_categories = 0                           " カテゴリ
+let memolist_vimfiler = 1                                      " vimfiler 使用有無
 
 " FuzzyFinder
 nmap mf :FufFile <C-r>=expand(g:memolist_path."/")<CR><CR>
 
-"===============================================
-" PHP
-"===============================================
-
-" function dictionary
-"autocmd FileType php  :nmap ,l :call PHPLint()<CR>
-
-"function PHPLint()
-"    let result = system( &ft . ' -l ' . bufname(""))
-"        echo result
-"endfunction
+" vim-indent-guides
+set ts=2 sw=2 et
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_enable_on_vim_startup = 1
 
 "===============================================
 " Perl
