@@ -239,6 +239,9 @@ elif [ $KERNEL = Darwin ]; then
     zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
     alias ls="ls -G"
 
+    alias safari="open -a Safari"
+    alias chrome="open -a Chrome"
+
 fi
 
 
