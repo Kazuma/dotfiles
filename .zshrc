@@ -129,10 +129,8 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
       alias df="df -h"
       alias su="su -l"
       alias w3m="w3m http://www.google.co.jp"
-      alias termtter="./termtter/bin/termtter"
       alias gnome-terminal="VTE_CJK_WIDTH=auto; gnome-terminal --disable-factory"
       alias git='hub'
-      alias s4='sshfs wm4-dev.es.occ.co.jp: /home/kazuma/mnt/wm4-dev -o workaround=rename -o follow_symlinks -o Cipher=arcfour256'
 
   elif [ $KERNEL = Darwin ]; then
 
