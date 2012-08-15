@@ -21,15 +21,15 @@
   zstyle ':vcs_info:git:*' unstagedstr ✘
   zstyle ':vcs_info:svn:*' branchformat '%b:r%r'
 
-  PROMPT_USERHOST='%{'${fg[red]}'%}[%m]%{'${reset_color}'%}'
-  PROMPT_KAOMOJI='%{'${fg[yellow]}'%}[ :-D ]'
-  PROMPT_STATUS='%{'${fg[green]}'%}[%B%/%#]%{'${reset_color}'%}'
-  PROMPT_INPUT_LINE='%{'${fg[green]}'%}✈ '
-  CODE_TOP='%{'${fg[white]}'%}╭ '
-  CODE_BOTTOM='%{'${fg[white]}'%}╰ '
+  PROMPT_USERHOST='%B%{'${fg[red]}'%}[%m]%{'${reset_color}'%}'
+  PROMPT_KAOMOJI='%B%{'${fg[yellow]}'%}[ :-D ]'
+  PROMPT_STATUS='%B%{'${fg[green]}'%}[%B%/%#]%{'${reset_color}'%}'
+  PROMPT_INPUT_LINE='%B%{'${fg[green]}'%}✈ '
+  CODE_TOP='%B%{'${fg[white]}'%}╭ '
+  CODE_BOTTOM='%B%{'${fg[white]}'%}╰ '
 
   if which rbenv &> /dev/null; then
-      RUBY_VERSION="%{$fg[magenta]%}[$(rbenv version | sed -e 's/ (set.*$//')]"
+      RUBY_VERSION="%B%{$fg[magenta]%}[$(rbenv version | sed -e 's/ (set.*$//')]"
   fi
 
   prompt_precmd () {
@@ -41,11 +41,21 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
   add-zsh-hook precmd prompt_precmd
 
 
+## set LSCOLORS configuration
+
+  export LSCOLORS=exfxcxdxbxegedabagacad
+  #export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+
+
 ## screen 時に、タブに最後に打ったコマンド名を表示する
 
   preexec () {
     [ ${STY} ] && echo -ne "\ek${1%% *}\e\\"
   }
+
+## 3秒以上かかったコマンドの統計情報を表示
+
+  PROMPTTIME=3
 
 ## 補完候補が多いときに尋ねる(0=自動)
 
@@ -81,13 +91,20 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
   #setopt noautoremoveslash               ### パスの最後に付くスラッシュを自動的に削除しない
 
 
-## 補完
+## zstyle
 
-  zstyle ':completion:*' verbose no                                ### オプション補完で解説部分を表示しない
+
+  zstyle ':completion:*' format '%F{green}%d%f'                    ### タグにスタイルを設定
+  zstyle ':completion:*' group-name ''                             ### マッチ対象を種類毎にグループ化して表示
+  zstyle ':completion:*' keep-prefix                               ### チルダや変数展開を含むプレフィックスを保つ
   zstyle ':completion:*' use-cache true                            ### キャッシュを使って速くする
   zstyle ':completion:*' list-separator '-->'                      ### セパレータを設定する
   zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'              ### 補完の時に大文字小文字を区別しない
   zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}    ### ls コマンドの補完候補にも色付き表示
+  ### list-colors の設定
+  zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
+  ### コンプリータ関数(詳しくは Web で -> http://www.gentei.org/~yuuji/rec/pc/zsh/zshcompsys.txt )
+  zstyle ':completion:*' completer _oldlist _complete _match _ignored _approximate _list _history
   ### kill の候補にも色付き表示
   zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([%0-9]#)*=0=01;31'
   ### sudo の後ろでコマンド名を補完する
@@ -119,6 +136,7 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
 ## Alias configuration
 
   alias where="command -v"
+  alias grep="grep -i --color=auto"
 
   if [ $KERNEL = Linux ]; then
 
@@ -134,60 +152,19 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
 
   elif [ $KERNEL = Darwin ]; then
 
-      export LSCOLORS=gxfxcxdxbxegedabagacad
-      export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-      zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-      alias ls="ls -G"
-
+      alias ls="ls -F -G"
       alias safari="open -a Safari"
       alias chrome="open -a Chrome"
 
   fi
 
 
-## terminal configuration
+## screen 上で ssh した時に仮想端末を作成する
 
-  case "${TERM}" in
-  screen)
-      TERM=xterm
-      ;;
-  esac
-
-  case "${TERM}" in
-  xterm|xterm-color)
-      export LSCOLORS=exfxcxdxbxegedabagacad
-      export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-      zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-      ;;
-  kterm-color)
-      stty erase '^H'
-      export LSCOLORS=exfxcxdxbxegedabagacad
-      export LS_COLORS='di=36:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-      zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-      ;;
-  kterm)
-      stty erase '^H'
-      ;;
-  cons25)
-      unset LANG
-      export LSCOLORS=ExFxCxdxBxegedabagacad
-      export LS_COLORS='di=01;36:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-      zstyle ':completion:*' list-colors 'di=;36;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-      ;;
-  jfbterm-color)
-      export LSCOLORS=gxFxCxdxBxegedabagacad
-      export LS_COLORS='di=01;36:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-      zstyle ':completion:*' list-colors 'di=;36;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-      ;;
-  esac
-
-
-## set terminal title including current directory
-
-  case "${TERM}" in
-  xterm|xterm-color|kterm|kterm-color)
-      precmd() {
-          echo -ne "\033]0;${USER}@${HOST%%.*}:${PWD}\007"
+  if [ ${TERM} = xterm-256color ]; then
+      function ssh-screen() {
+          eval SSH_HOST='${'$#'}'
+          screen -t ${SSH_HOST} env TERM=screen ssh "$@"
       }
-      ;;
-  esac
+      alias ssh=ssh-screen
+  fi

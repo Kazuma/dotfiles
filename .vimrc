@@ -316,6 +316,7 @@ vmap <Space>op <Plug>(openbrowser-smart-search)
 
 " quickrun
 let g:quickrun_config = {}
+let g:quickrun_config['*'] = {'split': 'below'}
 let g:quickrun_config['markdown'] = {
       \ 'type': 'markdown/pandoc',
       \ 'outputter': 'browser',
