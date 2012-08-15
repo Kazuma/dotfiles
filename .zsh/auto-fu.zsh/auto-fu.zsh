@@ -345,7 +345,6 @@ function () {
   zstyle ':auto-fu:highlight' input bold
   zstyle ':auto-fu:highlight' completion fg=black,bold
   zstyle ':auto-fu:highlight' completion/one fg=whilte,bold,underline
-#  zstyle ':auto-fu:var' postdisplay $'\n-azfu-'
 }
 
 declare -a afu_accept_lines
@@ -789,7 +788,6 @@ auto-fu-zcompile () {
 zstyle ':auto-fu:highlight' input bold
 zstyle ':auto-fu:highlight' completion fg=black,bold
 zstyle ':auto-fu:highlight' completion/one fg=white,bold,underline
-zstyle ':auto-fu:var' postdisplay $'\n-azfu-'
 zstyle ':auto-fu:var' track-keymap-skip opp
 zle-line-init () {auto-fu-init;}; zle -N zle-line-init
 zle -N zle-keymap-select auto-fu-zle-keymap-select
