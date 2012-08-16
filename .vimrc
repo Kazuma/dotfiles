@@ -5,40 +5,41 @@ call neobundle#rc()
 " plugin
 NeoBundle 'tags'
 NeoBundle 'perl'
-NeoBundle 'jQuery'
-NeoBundle 'vim-ref'
-NeoBundle 'altercmd'
-NeoBundle 'neco-look'
-NeoBundle 'auto_mkdir'
-NeoBundle 'neocomplcache'
-NeoBundle 'PHP-dictionary'
-NeoBundle 'Highlight-UnMatched-Brackets'
-NeoBundle 'git://github.com/vim-scripts/L9'
-NeoBundle 'git://github.com/Shougo/vimproc'
-NeoBundle 'git://github.com/Shougo/vimfiler'
-NeoBundle 'git://github.com/mattn/webapi-vim'
+NeoBundle 'git://github.com/Rykka/riv.vim'
+NeoBundle 'git://github.com/tukkee/unite-help'
+NeoBundle 'git://github.com/tpope/vim-markdown'
 NeoBundle 'git://github.com/t9md/vim-textmanip'
 NeoBundle 'git://github.com/scrooloose/syntastic'
-NeoBundle 'git://github.com/mattn/benchvimrc-vim'
-NeoBundle 'git://github.com/mattn/learn-vimscript'
 NeoBundle 'git://github.com/tyru/open-browser.vim'
 NeoBundle 'git://github.com/glidenote/memolist.vim'
-NeoBundle 'git://github.com/vim-scripts/FuzzyFinder'
+NeoBundle 'git://github.com/Lokaltog/vim-powerline'
+NeoBundle 'git://github.com/othree/html5-syntax.vim'
 NeoBundle 'git://github.com/kchmck/vim-coffee-script'
+NeoBundle 'git://github.com/chriskempson/tomorrow-theme'
 NeoBundle 'git://github.com/nathanaelkane/vim-indent-guides'
-"" quick plugin
-NeoBundle 'qfixapp'
-NeoBundle 'quicklaunch'
-NeoBundle 'quickrun.vim'
-"" markdown plugin
-NeoBundle 'Markdown'
-NeoBundle 'vim-markdown'
-NeoBundle 'Markdown-syntax'
-"" unite plugin
-NeoBundle 'unite.vim'
-NeoBundle 'unite-colorscheme'
-NeoBundle 'git://github.com/tukkee/unite-help'
-NeoBundle 'git://github.com/mattn/unite-mcdonalds-vim'
+" vim-scripts plugin
+NeoBundle 'git://github.com/vim-scripts/L9'
+NeoBundle 'git://github.com/vim-scripts/Align'
+NeoBundle 'git://github.com/vim-scripts/DrawIt'
+NeoBundle 'git://github.com/vim-scripts/ctrlp.vim'
+NeoBundle 'git://github.com/vim-scripts/auto_mkdir'
+NeoBundle 'git://github.com/vim-scripts/Markdown-syntax'
+NeoBundle 'git://github.com/vim-scripts/PHP-dictionary'
+" Shougo's plugin
+NeoBundle 'git://github.com/Shougo/vimproc'
+NeoBundle 'git://github.com/Shougo/vimshell'
+NeoBundle 'git://github.com/Shougo/vimfiler'
+NeoBundle 'git://github.com/Shougo/unite.vim'
+NeoBundle 'git://github.com/Shougo/neocomplcache'
+" mattn's plugin
+NeoBundle 'git://github.com/mattn/webapi-vim'
+NeoBundle 'git://github.com/mattn/togetter-vim'
+NeoBundle 'git://github.com/mattn/benchvimrc-vim'
+NeoBundle 'git://github.com/mattn/learn-vimscript'
+" thinca's plugin
+NeoBundle 'git://github.com/thinca/vim-ref'
+NeoBundle 'git://github.com/thinca/vim-quickrun'
+NeoBundle 'git://github.com/thinca/vim-template'
 
 " ソフトタブの設定
 set expandtab
@@ -60,6 +61,7 @@ set smartindent
 
 " if(){} などのインデント
 set cindent 
+
 " 入力中のコマンドをステータス行に表示
 set showcmd
 
@@ -175,13 +177,6 @@ set backspace=indent,eol,start
 " カーソル行をハイライト
 set cursorline
 
-" カレントウィンドウにのみ罫線を引く
-augroup cch
-    autocmd! cch
-    autocmd WinLeave * set nocursorline
-    auto WinEnter,BufRead * set cursorline
-augroup END
-
 " カーソル行を反転させる
 hi clear CursorLine
 hi CursoLine gui=underline
@@ -207,17 +202,6 @@ endfunction
 " Remap the tab key to select action with InsertTabWrapper
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
  
-" 画面分割時に自動で幅を決める
-nnoremap <C-w>h <C-w>h:call <SID>good_width()<Cr>
-nnoremap <C-w>l <C-w>l:call <SID>good_width()<Cr>
-nnoremap <C-w>H <C-w>H:call <SID>good_width()<Cr>
-nnoremap <C-w>L <C-w>L:call <SID>good_width()<Cr>
-function! s:good_width()
-    if winwidth(0) < 84
-        vertical resize 84
-    endif
-    endfunction
-
 " 行末の不要なスペースを削除する
 function! RTrim()
 %s/\s\+$//e
@@ -228,8 +212,8 @@ autocmd BufWritePre *.php,*.rb,*.js,*.tpl,*.ihtml,*.bat,*.pl,*.pm call RTrim()
 nnoremap <Esc><Esc> :<C-u>set nohlsearch<Return>
 nnoremap / :<C-u>set hlsearch<Return>/
 
-" ノーマルモードで改行する
-noremap <CR> o<ESC>
+" ; と : を入れ替える(コマンドモードに入るときに楽！)
+noremap ; :
 
 " マッチ文字列が画面の真ん中にくるようにする
 nmap n nzz
@@ -238,6 +222,11 @@ nmap * *zz
 nmap # #zz
 nmap g* g*zz
 nmap g# g#zz
+
+" ビジュアルモードで選択した行を連番にする
+nnoremap <silent> <C-a> :ContinuousNumber <C-a><CR>
+vnoremap <silent> <C-a> :ContinuousNumber <C-a><CR>
+command! -count -nargs=1 ContinuousNumber let c = col('.')|for n in range(1, <count>?<count>-line('.'):1)|exec 'normal! j' . n . <q-args>|call cursor('.', c)|endfor
 
 " gf で HTML から JavaScript ファイルを開く(スラッシュで始まる相対 URL に対応)
 autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
@@ -249,7 +238,12 @@ autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | se
 " プラグインを使えるようにする
 filetype plugin on
 
+" vim-powerline
+" パッチフォントを使用する
+let g:Powerline_symbols = 'fancy'
+
 " Markdown.vim
+autocmd BufRead,BufNewFile *.md if &ft == 'modula2' | set ft=markdown | endif
 autocmd BufRead,BufNewFile *.md       setfiletype markdown
 autocmd BufRead,BufNewFile *.mkd      setfiletype markdown
 autocmd BufRead,BufNewFile *.mkdn     setfiletype markdown
@@ -317,25 +311,26 @@ vmap <Space>op <Plug>(openbrowser-smart-search)
 " quickrun
 let g:quickrun_config = {}
 let g:quickrun_config['*'] = {'split': 'below'}
-let g:quickrun_config['markdown'] = {
-      \ 'type': 'markdown/pandoc',
-      \ 'outputter': 'browser',
-      \ 'cmdopt': '-s'
-      \ }
-let g:quickrun_config['rst'] = {
-    \ 'command': 'rst2html',
-    \ 'outputter': 'browser',
-    \ }
+let g:quickrun_config['markdown'] = { 'command': 'marpet', 'outputter': 'browser', 'exec': ['%c %s'], }
+let g:quickrun_config['conf']     = { 'command': 'marpet', 'outputter': 'browser', 'exec': ['%c %s'], }
+let g:quickrun_config['rst']      = { 'command': 'rst2html', 'outputter': 'browser', 'tempfile': '%{tempfile()}.html', }
+let g:quickrun_config['html']     = { 'outputter': 'browser', 'cmdopt': '-s', }
+let g:quickrun_config['coffee']   = { 'command' : 'coffee', 'exec' : ['%c -cbp %s'] }
 
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_safe_mode_by_default = 0
+let g:vimfiler_edit_action = 'split'
 call vimfiler#set_execute_file('vim', 'vim')
 call vimfiler#set_execute_file('txt', 'vim')
-nnoremap <silent> <C-u>f :VimFilerSplit -horizontal<CR>
+nnoremap <silent> <C-u>f :VimFilerSplit -buffer-name=explorer -split -winwidth=35 -toggle -no-quit<CR>
+nnoremap <silent> <C-u>c :VimFilerClose explorer<CR>
 
 " unite.vim
 au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
 au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+let g:unite_source_file_mru_filename_format = ''
+let g:unite_winheight= 10
 
 " syntastic
 let g:syntastic_enable_signs  = 1
@@ -352,18 +347,31 @@ let g:memolist_path = "~/Dropbox/howm/memo"                    " ディレクト
 let g:memolist_template_dir_path = "~/.vim/template/memolist"  " テンプレートファイルパス
 let g:memolist_memo_suffix = "markdown"                        " ファイルタイプ
 let g:memolist_memo_date = "%Y-%m-%d %H:%M"                    " 日付形式
-let g:memolist_prompt_tags = 0                                 " タグ
+let g:memolist_prompt_tags = 1                                 " タグ
 let g:memolist_prompt_categories = 0                           " カテゴリ
 let memolist_vimfiler = 1                                      " vimfiler 使用有無
 
-" FuzzyFinder
-nmap mf :FufFile <C-r>=expand(g:memolist_path."/")<CR><CR>
+" ctrlp.vim
+let g:ctrlp_regexp = 1                                 " regexp search
+"let g:ctrip_use_migemo = 1                            " migemo をインストールして日本語ファイルにマッチ
+let g:ctrlp_by_filename = 1                            " ファイル名で検索
+let g:ctrip_open_new_file = 'h'                        " 縦分割で開く
+let g:ctrlp_user_command = 'find %s -type f'           " 検索方法
+" 検索時に除外するファイル
+let g:ctrlp_custom_ignore = {
+    \ 'dir': '\.git$\|\.svn$',
+    \ 'file': '\.swp$',
+    \ }
 
 " vim-indent-guides
 set ts=2 sw=2 et
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
+
+" vim-coffee-script
+autocmd BufWritePost *.coffee silent CoffeeMake! -cb | cwindow | redraw!
+
 
 "===============================================
 " Perl
