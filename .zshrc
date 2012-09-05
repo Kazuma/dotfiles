@@ -146,6 +146,7 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
       alias du="du -h"
       alias df="df -h"
       alias su="su -l"
+      alias diff="diff -u"
       alias w3m="w3m http://www.google.co.jp"
       alias gnome-terminal="VTE_CJK_WIDTH=auto; gnome-terminal --disable-factory"
       alias git='hub'
