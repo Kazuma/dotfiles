@@ -1,45 +1,47 @@
 " NeoBundle の設定
-set rtp+=~/.vim/neobundle.vim.git/ 
-call neobundle#rc()
+set nocompatible
+filetype off
+
+if has('vim_starting')
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#rc(expand('~/.vim/bundle/'))
 
 " plugin
 NeoBundle 'tags'
 NeoBundle 'perl'
-NeoBundle 'git://github.com/Rykka/riv.vim'
-NeoBundle 'git://github.com/tukkee/unite-help'
-NeoBundle 'git://github.com/tpope/vim-markdown'
-NeoBundle 'git://github.com/t9md/vim-textmanip'
-NeoBundle 'git://github.com/scrooloose/syntastic'
-NeoBundle 'git://github.com/tyru/open-browser.vim'
-NeoBundle 'git://github.com/glidenote/memolist.vim'
-NeoBundle 'git://github.com/Lokaltog/vim-powerline'
-NeoBundle 'git://github.com/othree/html5-syntax.vim'
-NeoBundle 'git://github.com/kchmck/vim-coffee-script'
-NeoBundle 'git://github.com/chriskempson/tomorrow-theme'
-NeoBundle 'git://github.com/nathanaelkane/vim-indent-guides'
+NeoBundle 'Rykka/riv.vim'
+NeoBundle 'tukkee/unite-help'
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 't9md/vim-textmanip'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'glidenote/memolist.vim'
+NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'othree/html5-syntax.vim'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 " vim-scripts plugin
-NeoBundle 'git://github.com/vim-scripts/L9'
-NeoBundle 'git://github.com/vim-scripts/Align'
-NeoBundle 'git://github.com/vim-scripts/DrawIt'
-NeoBundle 'git://github.com/vim-scripts/ctrlp.vim'
-NeoBundle 'git://github.com/vim-scripts/auto_mkdir'
-NeoBundle 'git://github.com/vim-scripts/Markdown-syntax'
-NeoBundle 'git://github.com/vim-scripts/PHP-dictionary'
+NeoBundle 'vim-scripts/L9'
+NeoBundle 'vim-scripts/auto_mkdir'
+NeoBundle 'vim-scripts/Markdown-syntax'
+NeoBundle 'vim-scripts/PHP-dictionary'
 " Shougo's plugin
-NeoBundle 'git://github.com/Shougo/vimproc'
-NeoBundle 'git://github.com/Shougo/vimshell'
-NeoBundle 'git://github.com/Shougo/vimfiler'
-NeoBundle 'git://github.com/Shougo/unite.vim'
-NeoBundle 'git://github.com/Shougo/neocomplcache'
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neocomplcache'
 " mattn's plugin
-NeoBundle 'git://github.com/mattn/webapi-vim'
-NeoBundle 'git://github.com/mattn/togetter-vim'
-NeoBundle 'git://github.com/mattn/benchvimrc-vim'
-NeoBundle 'git://github.com/mattn/learn-vimscript'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'mattn/togetter-vim'
+NeoBundle 'mattn/benchvimrc-vim'
+NeoBundle 'mattn/learn-vimscript'
 " thinca's plugin
-NeoBundle 'git://github.com/thinca/vim-ref'
-NeoBundle 'git://github.com/thinca/vim-quickrun'
-NeoBundle 'git://github.com/thinca/vim-template'
+NeoBundle 'thinca/vim-ref'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-template'
 
 " ソフトタブの設定
 set expandtab
@@ -54,7 +56,7 @@ set shiftwidth=4
 set softtabstop=4
 
 " インデントを使えるようにする
-filetype indent on
+filetype plugin indent on
 
 " スマートインデントを有効にする
 set smartindent
@@ -105,6 +107,8 @@ set hlsearch
 
 "検索時にインクリメンタルサーチを行う
 set incsearch
+
+" 現在のモードを表示
 set showmode
 
 " 置換に正規表現を使えるようにする
@@ -133,6 +137,9 @@ set clipboard=unnamed
 
 " 折りたたみ
 set foldmethod=manual
+
+" ファイルを開いた時点での折りたたみの状態
+set foldlevel=0
 
 " 折りたたみの情報を保存
 set viewdir=~/.vim/view
@@ -235,9 +242,6 @@ autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | se
 " Plugin
 "===============================================
 
-" プラグインを使えるようにする
-filetype plugin on
-
 " vim-powerline
 " パッチフォントを使用する
 let g:Powerline_symbols = 'fancy'
@@ -249,33 +253,6 @@ autocmd BufRead,BufNewFile *.mkd      setfiletype markdown
 autocmd BufRead,BufNewFile *.mkdn     setfiletype markdown
 autocmd BufRead,BufNewFile *.mdown    setfiletype markdown
 autocmd BufRead,BufNewFile *.markdown setfiletype markdown
-
-" qfixapp
-set runtimepath+=~/.vim/bundle/qfixapp/ftplugin/qfixapp          " qfixapp に runtimepath を通す
-let QFixHowm_Key = 'g'                                           " キーマップリーダー
-let QFixHowm_RootDir = '~/Dropbox/howm'                          " howm_dir ルートディレクトリ
-lef howm_dir = '~/Dropbox/howm'                                  " howm_dir ホームディレクトリ
-let howm_filename = '%Y/%m/%Y-%m-%d-%H%M.howm'                   " ファイル名
-let QFixHowm_DiaryFile = 'Diary/%Y/%m/%Y-%m-%d-000000.howm'      " 日記ファイル名
-let howm_fileencoding = 'utf-8'                                  " 文字コード
-let MyGrep_ShellEncoding = 'utf-8'                               " シェルの文字コード
-let howm_fileformat = 'unix'                                     " ファイルフォーマット
-let mygrepprg = 'grep'                                           " 内蔵 grep
-let QFixHowm_SchedulePreview = 0                                 " 予定・TODO でのプレビュー表示 ON/OFF
-let QFixHowm_ReminderSortMode = 1                                " 予定・TODOソートの昇順/降順
-let SubWindow_Title = '~/__submenu__.howm'                       " サブメニューで表示するファイル名
-let SubWindow_Width = 30                                         " サブメニューの幅指定
-let QFixHowm_ShowTodayLine = 2                                   " 予定や TODO に現在日付行や現在時刻行、境界行を表示する
-let QFixHowm_RemovePriority  = -1                                " アクティブ化されていない予定や TODO を表示
-let QFixHowm_FoldingPattern = '^[=.*[]'                          " 折りたたみのパターン
-let QFixHowm_Folding = 0                                         " 折りたたみを(有効:1, 無効:0)にする
-" 予定・TODOのソート優先度
-let QFixHowm_ReminderPriority = {'@' : 1, '!' : 1, '+' : 3, '-' : 4, '~' : 5, '.' : 6}
-" 休日名
-let QFixHowm_ReminderHolidayName = '元日\|成人の日\|建国記念の日\|昭和の日\|憲法記念日\|みどりの日\|こどもの日\|海の日\|敬老の日\|体育の日\|文化の日\|勤労感謝の日\|天皇誕生日\|春分の日\|秋分の日\|振替休日\|国民の休日\|土曜日\|日曜日'
-" 曜日を日本語表示
-let QFixHowm_DayOfWeekDic = {'Sun' : "日", 'Mon' : "月", 'Tue' : "火", 'Wed' : "水", 'Thu' : "木", 'Fri' : "金", 'Sat' : "土"}
-let QFixHowm_DayOfWeekReg = "\(日\|月\|火\|水\|木\|金\|土\)"
 
 " Neocomplcache
 let g:neocomplcache_enable_at_startup = 1                       " 自動起動設定
@@ -350,18 +327,6 @@ let g:memolist_memo_date = "%Y-%m-%d %H:%M"                    " 日付形式
 let g:memolist_prompt_tags = 1                                 " タグ
 let g:memolist_prompt_categories = 0                           " カテゴリ
 let memolist_vimfiler = 1                                      " vimfiler 使用有無
-
-" ctrlp.vim
-let g:ctrlp_regexp = 1                                 " regexp search
-"let g:ctrip_use_migemo = 1                            " migemo をインストールして日本語ファイルにマッチ
-let g:ctrlp_by_filename = 1                            " ファイル名で検索
-let g:ctrip_open_new_file = 'h'                        " 縦分割で開く
-let g:ctrlp_user_command = 'find %s -type f'           " 検索方法
-" 検索時に除外するファイル
-let g:ctrlp_custom_ignore = {
-    \ 'dir': '\.git$\|\.svn$',
-    \ 'file': '\.swp$',
-    \ }
 
 " vim-indent-guides
 set ts=2 sw=2 et
