@@ -14,7 +14,7 @@
 
   zstyle ':vcs_info:*' enable git svn
   zstyle ':vcs_info:*' actionformats '%{'${fg[blue]}'%}(%s)-[%b|%a][%r] %c%u'
-  zstyle ':vcs_info:*' formats '%{'${fg[cyan]}'%}(%s)-[%b][%r] %{'${fg[green]}'%}%c%{'${fg[red]}'%}%u'
+  zstyle ':vcs_info:*' formats '%{'${fg[cyan]}'%}(%s)-[%b][%r] %{'${fg[green]}'%}%c %{'${fg[red]}'%}%u'
   zstyle ':vcs_info:*' user-simple true
   zstyle ':vcs_info:git:*' check-for-changes true
   zstyle ':vcs_info:git:*' stagedstr ✔

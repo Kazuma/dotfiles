@@ -22,8 +22,10 @@ NeoBundle 'Lokaltog/vim-powerline'
 NeoBundle 'othree/html5-syntax.vim'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'timcharper/textile.vim'
 " vim-scripts plugin
 NeoBundle 'vim-scripts/L9'
+NeoBundle 'vim-scripts/VOoM'
 NeoBundle 'vim-scripts/auto_mkdir'
 NeoBundle 'vim-scripts/Markdown-syntax'
 NeoBundle 'vim-scripts/PHP-dictionary'
@@ -71,7 +73,7 @@ set showcmd
 set laststatus=2
 
 " ステータスラインに表示する情報の指定
-set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%{synIDattr(synID(line('.'),col('.'),1),'name')}\ %l/%L(%P)%m
+"set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%{synIDattr(synID(line('.'),col('.'),1),'name')}\ %l/%L(%P)%m
 
 " □とか○の文字があってもカーソル位置がずれないようにする
 if exists('&ambiwidth')
@@ -84,8 +86,11 @@ set textwidth=0
 " ウィンドウの幅より長い行は折り返して、次の行に続けて表示する
 set wrap
 
-" マウスを使用可能にする
+" マウスを有効にする
 set mouse=a
+
+" ターミナルでマウスを使用可能にする
+set ttymouse=xterm2
 
 " 256 Colors
 set t_Co=256
@@ -142,11 +147,11 @@ set foldmethod=manual
 set foldlevel=0
 
 " 折りたたみの情報を保存
-set viewdir=~/.vim/view
+"set viewdir=~/.vim/view
 
 " 折りたたみの情報を自動で保存・読込
-autocmd BufWritePost * :mkview
-autocmd BufReadPost * :loadview
+"autocmd BufWritePost * :mkview
+"autocmd BufReadPost * :loadview
 
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
@@ -254,6 +259,9 @@ autocmd BufRead,BufNewFile *.mkdn     setfiletype markdown
 autocmd BufRead,BufNewFile *.mdown    setfiletype markdown
 autocmd BufRead,BufNewFile *.markdown setfiletype markdown
 
+" textile.vim
+autocmd BufRead,BufNewFile *.textile  setfiletype textile
+
 " Neocomplcache
 let g:neocomplcache_enable_at_startup = 1                       " 自動起動設定
 let g:neocomplcache_max_list = 50                               " リスト表示件数
@@ -290,8 +298,9 @@ let g:quickrun_config = {}
 let g:quickrun_config['*'] = {'split': 'below'}
 let g:quickrun_config['markdown'] = { 'command': 'marpet', 'outputter': 'browser', 'exec': ['%c %s'], }
 let g:quickrun_config['conf']     = { 'command': 'marpet', 'outputter': 'browser', 'exec': ['%c %s'], }
+let g:quickrun_config['textile']  = { 'command': 'redcloth', 'outputter': 'browser', 'exec': ['%c %s'], }
 let g:quickrun_config['rst']      = { 'command': 'rst2html', 'outputter': 'browser', 'tempfile': '%{tempfile()}.html', }
-let g:quickrun_config['html']     = { 'outputter': 'browser', 'cmdopt': '-s', }
+let g:quickrun_config['html']     = { 'command': 'google-chrome', 'outputter': 'browser', }
 let g:quickrun_config['coffee']   = { 'command' : 'coffee', 'exec' : ['%c -cbp %s'] }
 
 " vimfiler

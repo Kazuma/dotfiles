@@ -53,3 +53,9 @@
       }
       zle -N zle-line-init
   fi
+
+## source zsh-syntax-highlighting.zsh
+
+  if [ -f $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+      source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  fi
