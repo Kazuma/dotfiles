@@ -25,6 +25,7 @@ g:ref_man_lang	ref-man.txt	/*g:ref_man_lang*
 g:ref_no_default_key_mappings	ref.txt	/*g:ref_no_default_key_mappings*
 g:ref_noenter	ref.txt	/*g:ref_noenter*
 g:ref_open	ref.txt	/*g:ref_open*
+g:ref_perldoc_auto_append_f	ref-perldoc.txt	/*g:ref_perldoc_auto_append_f*
 g:ref_perldoc_cmd	ref-perldoc.txt	/*g:ref_perldoc_cmd*
 g:ref_perldoc_complete_head	ref-perldoc.txt	/*g:ref_perldoc_complete_head*
 g:ref_phpmanual_cmd	ref-phpmanual.txt	/*g:ref_phpmanual_cmd*
@@ -46,7 +47,6 @@ ku-ref-for-ref-sources	ku-ref.txt	/*ku-ref-for-ref-sources*
 ku-ref-introduction	ku-ref.txt	/*ku-ref-introduction*
 ku-ref-key-table	ku-ref.txt	/*ku-ref-key-table*
 ku-ref.txt	ku-ref.txt	/*ku-ref.txt*
-ref	ref.txt	/*ref*
 ref#available_source_names()	ref.txt	/*ref#available_source_names()*
 ref#available_sources()	ref.txt	/*ref#available_sources()*
 ref#cache()	ref.txt	/*ref#cache()*
@@ -131,6 +131,7 @@ ref-source-attr-opened()	ref.txt	/*ref-source-attr-opened()*
 ref-sources	ref.txt	/*ref-sources*
 ref-viewer	ref.txt	/*ref-viewer*
 ref.txt	ref.txt	/*ref.txt*
+ref.vim	ref.txt	/*ref.vim*
 unite-ref	unite-ref.txt	/*unite-ref*
 unite-ref-changelog	unite-ref.txt	/*unite-ref-changelog*
 unite-ref-contents	unite-ref.txt	/*unite-ref-contents*

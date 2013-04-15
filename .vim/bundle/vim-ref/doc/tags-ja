@@ -13,10 +13,6 @@ b:ref_perldoc_mode	ref-perldoc.jax	/*b:ref_perldoc_mode*
 b:ref_perldoc_word	ref-perldoc.jax	/*b:ref_perldoc_word*
 filetype-ref	ref.jax	/*filetype-ref*
 filetype-ref-{source-name}	ref.jax	/*filetype-ref-{source-name}*
-g:ref_alc_cmd	ref-alc.jax	/*g:ref_alc_cmd*
-g:ref_alc_encoding	ref-alc.jax	/*g:ref_alc_encoding*
-g:ref_alc_start_linenumber	ref-alc.jax	/*g:ref_alc_start_linenumber*
-g:ref_alc_use_cache	ref-alc.jax	/*g:ref_alc_use_cache*
 g:ref_cache_dir	ref.jax	/*g:ref_cache_dir*
 g:ref_clojure_classpath	ref-clojure.jax	/*g:ref_clojure_classpath*
 g:ref_clojure_cmd	ref-clojure.jax	/*g:ref_clojure_cmd*
@@ -30,6 +26,7 @@ g:ref_man_lang	ref-man.jax	/*g:ref_man_lang*
 g:ref_no_default_key_mappings	ref.jax	/*g:ref_no_default_key_mappings*
 g:ref_noenter	ref.jax	/*g:ref_noenter*
 g:ref_open	ref.jax	/*g:ref_open*
+g:ref_perldoc_auto_append_f	ref-perldoc.jax	/*g:ref_perldoc_auto_append_f*
 g:ref_perldoc_cmd	ref-perldoc.jax	/*g:ref_perldoc_cmd*
 g:ref_perldoc_complete_head	ref-perldoc.jax	/*g:ref_perldoc_complete_head*
 g:ref_phpmanual_cmd	ref-phpmanual.jax	/*g:ref_phpmanual_cmd*
@@ -40,8 +37,11 @@ g:ref_refe_cmd	ref-refe.jax	/*g:ref_refe_cmd*
 g:ref_refe_encoding	ref-refe.jax	/*g:ref_refe_encoding*
 g:ref_refe_rsense_cmd	ref-refe.jax	/*g:ref_refe_rsense_cmd*
 g:ref_refe_version	ref-refe.jax	/*g:ref_refe_version*
+g:ref_source_webdict_cmd	ref-webdict.jax	/*g:ref_source_webdict_cmd*
+g:ref_source_webdict_encoding	ref-webdict.jax	/*g:ref_source_webdict_encoding*
+g:ref_source_webdict_sites	ref-webdict.jax	/*g:ref_source_webdict_sites*
+g:ref_source_webdict_use_cache	ref-webdict.jax	/*g:ref_source_webdict_use_cache*
 g:ref_use_vimproc	ref.jax	/*g:ref_use_vimproc*
-ref	ref.jax	/*ref*
 ref#available_source_names()	ref.jax	/*ref#available_source_names()*
 ref#available_sources()	ref.jax	/*ref#available_sources()*
 ref#cache()	ref.jax	/*ref#cache()*
@@ -55,12 +55,6 @@ ref#rmcache()	ref.jax	/*ref#rmcache()*
 ref#system()	ref.jax	/*ref#system()*
 ref#to_list()	ref.jax	/*ref#to_list()*
 ref#uniq()	ref.jax	/*ref#uniq()*
-ref-alc	ref-alc.jax	/*ref-alc*
-ref-alc-changelog	ref-alc.jax	/*ref-alc-changelog*
-ref-alc-contents	ref-alc.jax	/*ref-alc-contents*
-ref-alc-customizing	ref-alc.jax	/*ref-alc-customizing*
-ref-alc-introduction	ref-alc.jax	/*ref-alc-introduction*
-ref-alc.txt	ref-alc.jax	/*ref-alc.txt*
 ref-autoload	ref.jax	/*ref-autoload*
 ref-changelog	ref.jax	/*ref-changelog*
 ref-clojure	ref-clojure.jax	/*ref-clojure*
@@ -131,4 +125,12 @@ ref-source-attr-normalize()	ref.jax	/*ref-source-attr-normalize()*
 ref-source-attr-opened()	ref.jax	/*ref-source-attr-opened()*
 ref-sources	ref.jax	/*ref-sources*
 ref-viewer	ref.jax	/*ref-viewer*
+ref-webdict	ref-webdict.jax	/*ref-webdict*
+ref-webdict-arguments	ref-webdict.jax	/*ref-webdict-arguments*
+ref-webdict-changelog	ref-webdict.jax	/*ref-webdict-changelog*
+ref-webdict-contents	ref-webdict.jax	/*ref-webdict-contents*
+ref-webdict-customizing	ref-webdict.jax	/*ref-webdict-customizing*
+ref-webdict-introduction	ref-webdict.jax	/*ref-webdict-introduction*
+ref-webdict.txt	ref-webdict.jax	/*ref-webdict.txt*
 ref.txt	ref.jax	/*ref.txt*
+ref.vim	ref.jax	/*ref.vim*

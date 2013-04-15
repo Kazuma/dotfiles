@@ -18,11 +18,12 @@ NeoBundle 't9md/vim-textmanip'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'glidenote/memolist.vim'
+NeoBundle 'timcharper/textile.vim'
 NeoBundle 'Lokaltog/vim-powerline'
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'othree/html5-syntax.vim'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'timcharper/textile.vim'
 " vim-scripts plugin
 NeoBundle 'vim-scripts/L9'
 NeoBundle 'vim-scripts/VOoM'
@@ -37,13 +38,12 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
 " mattn's plugin
 NeoBundle 'mattn/webapi-vim'
-NeoBundle 'mattn/togetter-vim'
-NeoBundle 'mattn/benchvimrc-vim'
 NeoBundle 'mattn/learn-vimscript'
 " thinca's plugin
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-template'
+
 
 " ソフトタブの設定
 set expandtab
@@ -309,8 +309,9 @@ let g:vimfiler_safe_mode_by_default = 0
 let g:vimfiler_edit_action = 'split'
 call vimfiler#set_execute_file('vim', 'vim')
 call vimfiler#set_execute_file('txt', 'vim')
-nnoremap <silent> <C-u>f :VimFilerSplit -buffer-name=explorer -split -winwidth=35 -toggle -no-quit<CR>
+nnoremap <silent> <C-u>f :VimFilerSplit -buffer-name=explorer -split -toggle -no-quit<CR>
 nnoremap <silent> <C-u>c :VimFilerClose explorer<CR>
+nmap E <Plug>(vimfiler_edit_file)
 
 " unite.vim
 au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
@@ -346,6 +347,10 @@ let g:indent_guides_enable_on_vim_startup = 1
 " vim-coffee-script
 autocmd BufWritePost *.coffee silent CoffeeMake! -cb | cwindow | redraw!
 
+" vim-gitgutter
+let g:gitgutter_sign_added = "✔"
+let g:gitgutter_sign_modified = "➜"
+let g:gitgutter_sign_removed = "✘"
 
 "===============================================
 " Perl
