@@ -1,48 +1,43 @@
-" NeoBundle の設定
-set nocompatible
-filetype off
+" vim-plug
+call plug#begin()
 
-if has('vim_starting')
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
+"" plugin
+Plug 'Rykka/riv.vim'
+Plug 'tpope/vim-markdown'
+Plug 't9md/vim-textmanip'
+Plug 'junegunn/vim-emoji'
+Plug 'scrooloose/syntastic'
+Plug 'tyru/open-browser.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'glidenote/memolist.vim'
+Plug 'timcharper/textile.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'othree/html5-syntax.vim'
+Plug 'kchmck/vim-coffee-script'
+Plug 'puppetlabs/puppet-syntax-vim'
+Plug 'nathanaelkane/vim-indent-guides'
+"" vim-scripts plugin
+Plug 'vim-scripts/L9'
+Plug 'vim-scripts/auto_mkdir'
+Plug 'vim-scripts/Markdown-syntax'
+Plug 'vim-scripts/PHP-dictionary'
+"" Shougo's plugin
+Plug 'Shougo/vimproc'
+Plug 'Shougo/vimshell'
+Plug 'Shougo/vimfiler'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/neocomplcache'
+"" mattn's plugin
+Plug 'mattn/webapi-vim'
+Plug 'mattn/learn-vimscript'
+"" thinca's plugin
+Plug 'thinca/vim-ref'
+Plug 'thinca/vim-quickrun'
+Plug 'thinca/vim-template'
+"" color scheme
+Plug 'altercation/vim-colors-solarized'
 
-call neobundle#rc(expand('~/.vim/bundle/'))
-
-" plugin
-NeoBundle 'tags'
-NeoBundle 'perl'
-NeoBundle 'Rykka/riv.vim'
-NeoBundle 'tukkee/unite-help'
-NeoBundle 'tpope/vim-markdown'
-NeoBundle 't9md/vim-textmanip'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'glidenote/memolist.vim'
-NeoBundle 'timcharper/textile.vim'
-NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'othree/html5-syntax.vim'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'nathanaelkane/vim-indent-guides'
-" vim-scripts plugin
-NeoBundle 'vim-scripts/L9'
-NeoBundle 'vim-scripts/VOoM'
-NeoBundle 'vim-scripts/auto_mkdir'
-NeoBundle 'vim-scripts/Markdown-syntax'
-NeoBundle 'vim-scripts/PHP-dictionary'
-" Shougo's plugin
-NeoBundle 'Shougo/vimproc'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neocomplcache'
-" mattn's plugin
-NeoBundle 'mattn/webapi-vim'
-NeoBundle 'mattn/learn-vimscript'
-" thinca's plugin
-NeoBundle 'thinca/vim-ref'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-template'
+call plug#end()
 
 
 " ソフトタブの設定
@@ -72,9 +67,6 @@ set showcmd
 " ステータスラインを常に表示
 set laststatus=2
 
-" ステータスラインに表示する情報の指定
-"set statusline=%<%F\ %r%h%w%y%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%{synIDattr(synID(line('.'),col('.'),1),'name')}\ %l/%L(%P)%m
-
 " □とか○の文字があってもカーソル位置がずれないようにする
 if exists('&ambiwidth')
     set ambiwidth=double
@@ -91,12 +83,6 @@ set mouse=a
 
 " ターミナルでマウスを使用可能にする
 set ttymouse=xterm2
-
-" 256 Colors
-set t_Co=256
-
-" スキーマ指定
-colorscheme BlackSea
 
 "検索文字列が小文字の場合は大文字小文字を区別なく検索する
 set ignorecase
@@ -120,7 +106,7 @@ set showmode
 set magic
 
 " シンタックスハイライトを有効にする
-syntax on
+syntax enable
 
 " 文字列中のSQLをハイライトする
 let php_sql_query=1 
@@ -146,21 +132,11 @@ set foldmethod=manual
 " ファイルを開いた時点での折りたたみの状態
 set foldlevel=0
 
-" 折りたたみの情報を保存
-"set viewdir=~/.vim/view
-
-" 折りたたみの情報を自動で保存・読込
-"autocmd BufWritePost * :mkview
-"autocmd BufReadPost * :loadview
-
 " 改行コードの自動認識
 set fileformats=unix,dos,mac
 
 " ルーラー(右下に表示される行・列の番号)を表示
 set ruler
-
-" viとの互換性をなくす
-set nocompatible
 
 " ビープ音を鳴らさない
 set vb t_vb=
@@ -185,9 +161,6 @@ set fileencodings=utf-8,ucs-bom,euc-jp,cp932,iso-2022-jp
 
 " バックスペースですべて消せるように
 set backspace=indent,eol,start
-
-" カーソル行をハイライト
-set cursorline
 
 " カーソル行を反転させる
 hi clear CursorLine
@@ -247,9 +220,14 @@ autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | se
 " Plugin
 "===============================================
 
-" vim-powerline
-" パッチフォントを使用する
-let g:Powerline_symbols = 'fancy'
+" vim-solarized
+set background=dark
+colorscheme BlackSea
+let g:solarized_termcolors=256
+
+"===============================================
+" Plugin
+"===============================================
 
 " Markdown.vim
 autocmd BufRead,BufNewFile *.md if &ft == 'modula2' | set ft=markdown | endif
@@ -274,7 +252,6 @@ let g:neocomplcache_enable_camel_case_completion = 1            " Use camelcase.
 let g:neocomplcache_dictionary_filetype_lists = {
     \ 'default' : '' ,
     \ 'php' : $HOME.'/.vim/bundle/PHP-dictionary/php.dict',
-    \ 'pl' : $HOME.'/.vim/bundle/perl/perl_functions.dict',
     \ }
 "" Ctrl + l で Snippet を展開
 imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
@@ -348,14 +325,33 @@ let g:indent_guides_enable_on_vim_startup = 1
 autocmd BufWritePost *.coffee silent CoffeeMake! -cb | cwindow | redraw!
 
 " vim-gitgutter
-let g:gitgutter_sign_added = "✔"
-let g:gitgutter_sign_modified = "➜"
-let g:gitgutter_sign_removed = "✘"
+silent! if emoji#available()
+  let g:gitgutter_sign_added = emoji#for('white_check_mark')
+  let g:gitgutter_sign_modified = emoji#for('round_pushpin')
+  let g:gitgutter_sign_removed = emoji#for('boom')
+else
+  let g:gitgutter_sign_added = "✔"
+  let g:gitgutter_sign_modified = "➜"
+  let g:gitgutter_sign_removed = "✘"
+endif
 
-"===============================================
-" Perl
-"===============================================
-
-" perltidy
-map ,pt <ESC>:%! perltidy<CR>
-map ,ptv <ESC>:%'<, '>! perltidy<CR>
+" lightline.vim
+let g:lightline = {
+      \ 'colorscheme': 'solarized',
+      \ 'mode_map': { 'c': 'NORMAL' },
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+      \ },
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
