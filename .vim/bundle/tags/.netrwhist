@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/home/kazuma/webmagic/リウボウ'
-let g:netrw_dirhist_2='/home/kazuma/.perlbrew'
-let g:netrw_dirhist_3='/home/kazuma/Dropbox/github/showoff/public/css/theme'
-let g:netrw_dirhist_4='/home/kazuma/Dropbox/bin'
-let g:netrw_dirhist_5='/home/kazuma/Learning-Perl'
-let g:netrw_dirhist_6='/home/kazuma/hoge'
