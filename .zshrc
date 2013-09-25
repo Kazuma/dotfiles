@@ -1,5 +1,9 @@
 # zshrc
 
+## load plugins
+
+  source ~/.zshrc.plugin
+
 ## set autoload
 
   autoload zed
@@ -37,6 +41,7 @@
       PROMPT="$CODE_TOP$PROMPT_USERHOST$PROMPT_KAOMOJI$PROMPT_STATUS$RUBY_VERSION$vcs_info_msg_0_
 $CODE_BOTTOM$PROMPT_INPUT_LINE"
   }
+
 
   add-zsh-hook precmd prompt_precmd
 
@@ -77,6 +82,7 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
   setopt hist_ignore_space                ### スペースから始まるコマンド行はヒストリに残さない
   setopt hist_reduce_blanks               ### ヒストリに保存する時に余分なスペースを削除する
   setopt hist_save_nodups                 ### 重複するコマンドが保存されるとき、古い方を削除する
+  setopt interactive_comments             ### '#' 以降をコメントとして扱う
   setopt list_types                       ### 補完候補一覧でファイルの種別を識別マーク表示(ls -Fの記号)
   setopt list_packed                      ### 補完候補を積めて表示
   setopt magic_equal_subst                ### = 以降でも補完できるようにする( --prefix=/usr 等の場合)
@@ -99,8 +105,10 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
   zstyle ':completion:*' keep-prefix                               ### チルダや変数展開を含むプレフィックスを保つ
   zstyle ':completion:*' use-cache true                            ### キャッシュを使って速くする
   zstyle ':completion:*' list-separator '-->'                      ### セパレータを設定する
+  zstyle ':completion:*' ignore-parents parent pwd ..              ### ../ の後は今いるディレクトリを補完しない
   zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'              ### 補完の時に大文字小文字を区別しない
   zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}    ### ls コマンドの補完候補にも色付き表示
+  zstyle ':completion:*:processes' command 'ps x -o pid,s,args'    ### ps コマンドのプロセス名補完
   ### list-colors の設定
   zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
   ### コンプリータ関数(詳しくは Web で -> http://www.gentei.org/~yuuji/rec/pc/zsh/zshcompsys.txt )
@@ -132,14 +140,19 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
   bindkey "\\ep" history-beginning-search-backward-end
   bindkey "\\en" history-beginning-search-forward-end
 
+## zaw
+
+  bindkey "^x^H" zaw-history
+  bindkey "^x^B" zaw-git-branches
+
 
 ## Alias configuration
 
   alias where="command -v"
   alias grep="grep -i --color=auto"
 
-  if [ $KERNEL = Linux ]; then
-
+  case ${OSTYPE} in
+    linux*)
       alias rm="trash" ### ファイル削除時にすぐ削除ではなく,ゴミ箱へ移動する(trash-cli 要インストール)
 
       alias ls="ls -F --color"
@@ -149,23 +162,29 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
       alias diff="diff -u"
       alias w3m="w3m http://www.google.co.jp"
       alias gnome-terminal="VTE_CJK_WIDTH=auto; gnome-terminal --disable-factory"
-      alias git='hub'
-
-  elif [ $KERNEL = Darwin ]; then
-
+      alias git="hub"
+      alias gb="git branch"
+      alias gs="git status"
+      alias gp="git pull"
+      alias gc="git checkout"
+      alias gp="git push origin"
+      alias be="bundle exec"
+      ;;
+    darwin*)
       alias ls="ls -F -G"
       alias safari="open -a Safari"
       alias chrome="open -a Chrome"
-
-  fi
+      ;;
+  esac
 
 
 ## screen 上で ssh した時に仮想端末を作成する
 
+  function ssh_screen() {
+      eval SSH_HOST='${'$#'}'
+      screen -t ${SSH_HOST} env TERM=screen ssh "$@"
+  }
+
   if [ ${TERM} = xterm-256color ]; then
-      function ssh-screen() {
-          eval SSH_HOST='${'$#'}'
-          screen -t ${SSH_HOST} env TERM=screen ssh "$@"
-      }
-      alias ssh=ssh-screen
+      alias ssh=ssh_screen
   fi

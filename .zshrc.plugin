@@ -1,0 +1,24 @@
+# zshrc.plugin
+
+## load zaw
+
+ if [ -d ~/.zsh/zaw ]; then
+    source ~/.zsh/zaw/zaw.zsh
+ fi
+
+## load auto-fu.zsh
+
+ if [ -d ~/.zsh/auto-fu.zsh ]; then
+    source ~/.zsh/auto-fu.zsh/auto-fu.zsh
+    function zle-line-init () {
+      auto-fu-init;
+    };
+    zstyle ':auto-fu:var' postdisplay
+    zle -N zle-line-init
+ fi
+
+## load zsh-syntax-highlighting
+
+ #if [ -d ~/.zsh/zsh-syntax-highlighting ]; then
+ #   source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ #fi
