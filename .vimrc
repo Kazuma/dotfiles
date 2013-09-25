@@ -286,7 +286,7 @@ let g:vimfiler_safe_mode_by_default = 0
 let g:vimfiler_edit_action = 'split'
 call vimfiler#set_execute_file('vim', 'vim')
 call vimfiler#set_execute_file('txt', 'vim')
-nnoremap <silent> <C-u>f :VimFilerSplit -buffer-name=explorer -split -toggle -no-quit<CR>
+nnoremap <silent> <C-u>f :VimFilerSplit -buffer-name=explorer -split -winwidth=60 -toggle -no-quit<CR>
 nnoremap <silent> <C-u>c :VimFilerClose explorer<CR>
 nmap E <Plug>(vimfiler_edit_file)
 
