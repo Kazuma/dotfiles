@@ -225,10 +225,6 @@ set background=dark
 colorscheme BlackSea
 let g:solarized_termcolors=256
 
-"===============================================
-" Plugin
-"===============================================
-
 " Markdown.vim
 autocmd BufRead,BufNewFile *.md if &ft == 'modula2' | set ft=markdown | endif
 autocmd BufRead,BufNewFile *.md       setfiletype markdown
