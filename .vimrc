@@ -220,6 +220,9 @@ autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | se
 " Plugin
 "===============================================
 
+" vim-plug
+let g:plug_timeout = 60
+
 " vim-solarized
 set background=dark
 colorscheme BlackSea
