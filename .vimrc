@@ -2,36 +2,27 @@
 call plug#begin()
 
 "" plugin
-Plug 'Rykka/riv.vim'
-Plug 'tpope/vim-markdown'
-Plug 't9md/vim-textmanip'
-Plug 'junegunn/vim-emoji'
-Plug 'scrooloose/syntastic'
 Plug 'tyru/open-browser.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'glidenote/memolist.vim'
-Plug 'timcharper/textile.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'othree/html5-syntax.vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'nathanaelkane/vim-indent-guides'
+"" syntax plugin
+Plug 'Rykka/riv.vim'
+Plug 'tpope/vim-markdown'
+Plug 'scrooloose/syntastic'
+Plug 'timcharper/textile.vim'
+Plug 'othree/html5-syntax.vim'
+Plug 'puppetlabs/puppet-syntax-vim'
 "" vim-scripts plugin
-Plug 'vim-scripts/L9'
-Plug 'vim-scripts/auto_mkdir'
-Plug 'vim-scripts/Markdown-syntax'
 Plug 'vim-scripts/PHP-dictionary'
 "" Shougo's plugin
-Plug 'Shougo/vimproc'
-Plug 'Shougo/vimshell'
 Plug 'Shougo/vimfiler'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/neocomplcache'
 "" mattn's plugin
 Plug 'mattn/webapi-vim'
-Plug 'mattn/learn-vimscript'
 "" thinca's plugin
-Plug 'thinca/vim-ref'
 Plug 'thinca/vim-quickrun'
 Plug 'thinca/vim-template'
 "" color scheme
@@ -228,14 +219,6 @@ set background=dark
 colorscheme BlackSea
 let g:solarized_termcolors=256
 
-" Markdown.vim
-autocmd BufRead,BufNewFile *.md if &ft == 'modula2' | set ft=markdown | endif
-autocmd BufRead,BufNewFile *.md       setfiletype markdown
-autocmd BufRead,BufNewFile *.mkd      setfiletype markdown
-autocmd BufRead,BufNewFile *.mkdn     setfiletype markdown
-autocmd BufRead,BufNewFile *.mdown    setfiletype markdown
-autocmd BufRead,BufNewFile *.markdown setfiletype markdown
-
 " textile.vim
 autocmd BufRead,BufNewFile *.textile  setfiletype textile
 
@@ -255,16 +238,6 @@ let g:neocomplcache_dictionary_filetype_lists = {
 "" Ctrl + l で Snippet を展開
 imap <silent> <C-l> <Plug>(neocomplcache_snippets_expand)
 
-" vim-textmanip
-"" 選択したテキストの移動
-vmap <C-j> <Plug>(Textmanip.move_selection_down)
-vmap <C-k> <Plug>(Textmanip.move_selection_up)
-vmap <C-h> <Plug>(Textmanip.move_selection_left)
-vmap <C-l> <Plug>(Textmanip.move_selection_right)
-"" 行の複製
-vmap <M-d> <Plug>(Textmanip.duplicate_selection_v)
-nmap <M-d> <Plug>(Textmanip.duplicate_selection_n)
-
 " open-browser.vim
 nmap <Space>op <Plug>(openbrowser-smart-search)
 vmap <Space>op <Plug>(openbrowser-smart-search)
@@ -277,7 +250,6 @@ let g:quickrun_config['conf']     = { 'command': 'marpet', 'outputter': 'browser
 let g:quickrun_config['textile']  = { 'command': 'redcloth', 'outputter': 'browser', 'exec': ['%c %s'], }
 let g:quickrun_config['rst']      = { 'command': 'rst2html', 'outputter': 'browser', 'tempfile': '%{tempfile()}.html', }
 let g:quickrun_config['html']     = { 'command': 'google-chrome', 'outputter': 'browser', }
-let g:quickrun_config['coffee']   = { 'command' : 'coffee', 'exec' : ['%c -cbp %s'] }
 
 " vimfiler
 let g:vimfiler_as_default_explorer = 1
@@ -320,19 +292,10 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
 
-" vim-coffee-script
-autocmd BufWritePost *.coffee silent CoffeeMake! -cb | cwindow | redraw!
-
 " vim-gitgutter
-silent! if emoji#available()
-  let g:gitgutter_sign_added = emoji#for('white_check_mark')
-  let g:gitgutter_sign_modified = emoji#for('round_pushpin')
-  let g:gitgutter_sign_removed = emoji#for('boom')
-else
-  let g:gitgutter_sign_added = "✔"
-  let g:gitgutter_sign_modified = "➜"
-  let g:gitgutter_sign_removed = "✘"
-endif
+let g:gitgutter_sign_added = "✔"
+let g:gitgutter_sign_modified = "➜"
+let g:gitgutter_sign_removed = "✘"
 
 " lightline.vim
 let g:lightline = {
