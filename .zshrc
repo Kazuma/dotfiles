@@ -150,6 +150,8 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
 
   alias where="command -v"
   alias grep="grep -i --color=auto"
+  alias be="bundle exec"
+  alias w3m="w3m http://www.google.co.jp"
 
   case ${OSTYPE} in
     linux*)
@@ -160,7 +162,6 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
       alias df="df -h"
       alias su="su -l"
       alias diff="diff -u"
-      alias w3m="w3m http://www.google.co.jp"
       alias gnome-terminal="VTE_CJK_WIDTH=auto; gnome-terminal --disable-factory"
       alias git="hub"
       alias gb="git branch"
@@ -168,7 +169,6 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
       alias gp="git pull"
       alias gc="git checkout"
       alias gp="git push origin"
-      alias be="bundle exec"
       ;;
     darwin*)
       alias ls="ls -F -G"
@@ -178,13 +178,12 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
   esac
 
 
-## screen 上で ssh した時に仮想端末を作成する
+## tmux 上で ssh した時に仮想端末を作成する
 
-  function ssh_screen() {
-      eval SSH_HOST='${'$#'}'
-      screen -t ${SSH_HOST} env TERM=screen ssh "$@"
+  function ssh_tmux() {
+      tmux new-window -n $@ "exec ssh $@"
   }
 
   if [ ${TERM} = xterm-256color ]; then
-      alias ssh=ssh_screen
+      alias ssh=ssh_tmux
   fi
