@@ -1,0 +1,36 @@
+# Configuration file for tmux-powerline.
+# Modeline
+#	 vi: foldmarker={,} foldmethod=marker foldlevel=0 tabstop=4 filetype=sh
+
+# General
+
+	export TMUX_POWERLINE_DEBUG_MODE_ENABLED="false"
+	export TMUX_POWERLINE_PATCHED_FONT_IN_USE="true"
+	export TMUX_POWERLINE_THEME="default"
+	export TMUX_POWERLINE_DIR_USER_THEMES="$HOME/.tmux/themes"
+	export TMUX_POWERLINE_DIR_USER_SEGMENTS="$HOME/.tmux/segments"
+
+# battery.sh
+
+	export TMUX_POWERLINE_SEG_BATTERY_TYPE="percentage"
+	export TMUX_POWERLINE_SEG_BATTERY_NUM_HEARTS="10"
+
+# date.sh
+
+	export TMUX_POWERLINE_SEG_DATE_FORMAT="%F"
+
+# earthquake.sh
+
+	export TMUX_POWERLINE_SEG_EARTHQUAKE_DATA_PROVIDER="goo"
+	export TMUX_POWERLINE_SEG_EARTHQUAKE_UPDATE_PERIOD="60"
+	export TMUX_POWERLINE_SEG_EARTHQUAKE_ALERT_TIME_WINDOW="60"
+	export TMUX_POWERLINE_SEG_EARTHQUAKE_TIME_FORMAT='(%H:%M)'
+	export TMUX_POWERLINE_SEG_EARTHQUAKE_MIN_MAGNITUDE="1"
+
+# hostname.sh
+
+	export TMUX_POWERLINE_SEG_HOSTNAME_FORMAT="short"
+
+# time.sh
+
+	export TMUX_POWERLINE_SEG_TIME_FORMAT="%I:%M %p"
