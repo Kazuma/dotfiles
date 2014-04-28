@@ -1,0 +1,43 @@
+# Homebrew update
+update || true
+
+# Formula update
+upgrade || true
+
+# Formula tap
+tap phinze/homebrew-cask || true
+tap homebrew/versions || true
+tap homebrew/dupes || true
+tap homebrew/binary || true
+
+# Package install
+install brew-cask || true
+install zsh || true
+install w3m || true
+install tmux || true
+install tree || true
+install grep || true
+install wget || true
+
+# Ruby package install
+install openssl || true
+install readline || true
+install libxml2 || true
+install libxslt || true
+install rbenv || true
+install ruby-build || true
+install rbenv-gem-rehash || true
+install rbenv-default-gems || true
+
+# Binary package install
+install packer || true
+
+# GUI package install
+cask install gyazo || true
+cask install iterm2 || true
+cask install dropbox || true
+cask install vagrant || true
+cask install virtualbox || true
+cask install google-chrome || true
+
+cleanup
