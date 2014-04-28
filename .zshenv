@@ -28,8 +28,8 @@
 
 ## rbenv configuration file
 
-  if [[ -d ~/.rbenv/bin ]]; then # Ubuntu
-    export PATH=${HOME}/.rbenv/bin:$PATH
+  if [[ -d ~/.rbenv/shims ]]; then
+    export PATH=${HOME}/.rbenv/shims:$PATH
     eval "$(rbenv init - zsh)"
   fi
 
