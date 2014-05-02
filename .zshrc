@@ -32,8 +32,8 @@
   CODE_TOP='%B%{'${fg[white]}'%}╭ '
   CODE_BOTTOM='%B%{'${fg[white]}'%}╰ '
 
-  if which rbenv &> /dev/null; then
-      RUBY_VERSION="%B%{$fg[magenta]%}[$(rbenv version | sed -e 's/ (set.*$//')]"
+  if which ruby &> /dev/null; then
+      RUBY_VERSION="%B%{$fg[magenta]%}[$(ruby -v | awk '{ print $2}')]"
   fi
 
   prompt_precmd () {
