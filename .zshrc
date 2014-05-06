@@ -9,7 +9,7 @@
   autoload zed
   autoload history-search-end
   autoload -U add-zsh-hook
-  autoload -U compinit && compinit
+  autoload -U compinit && compinit -u
   autoload -U colors && colors
   autoload -Uz vcs_info && vcs_info
 
