@@ -1,43 +1,63 @@
-# Homebrew update
-update || true
+# Homebrew file
 
-# Formula update
-upgrade || true
+## Homebrew update
 
-# Formula tap
-tap phinze/homebrew-cask || true
-tap homebrew/versions || true
-tap homebrew/dupes || true
-tap homebrew/binary || true
+    update
 
-# Package install
-install brew-cask || true
-install zsh || true
-install w3m || true
-install tmux || true
-install tree || true
-install grep || true
-install wget || true
+## Formula update
 
-# Ruby package install
-install openssl || true
-install readline || true
-install libxml2 || true
-install libxslt || true
-install rbenv || true
-install ruby-build || true
-install rbenv-gem-rehash || true
-install rbenv-default-gems || true
+    upgrade
 
-# Binary package install
-install packer || true
+## Add formula
 
-# GUI package install
-cask install gyazo || true
-cask install iterm2 || true
-cask install dropbox || true
-cask install vagrant || true
-cask install virtualbox || true
-cask install google-chrome || true
+    tap caskroom/cask
+    tap homebrew/versions
+    tap homebrew/dupes
+    tap homebrew/binary
 
-cleanup
+## Command Line package install
+
+    install jq
+    install zsh
+    install w3m
+    install tmux
+    install tree
+    install grep
+    install wget
+    install openssh
+    install heroku-toolbelt
+
+### Ruby package install
+
+    install openssl
+    install readline
+    install libxml2
+    install libxslt
+    install rbenv
+    install ruby-build
+    install rbenv-gem-rehash
+    install rbenv-default-gems
+
+### Binary package install
+
+    install packer
+
+## brew-cask install
+
+    install brew-cask
+
+## GUI package install
+
+    cask install gyazo
+    cask install iterm2
+    cask install dropbox
+    cask install vagrant
+    cask install limechat
+    cask install virtualbox
+    cask install google-chrome
+    cask install google-japanese-ime
+
+## Old package cleanup
+
+    cleanup
+    cask cleanup
