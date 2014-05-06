@@ -18,6 +18,7 @@
 ## Command Line package install
 
     install jq
+    install git
     install zsh
     install w3m
     install tmux
