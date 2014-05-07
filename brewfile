@@ -25,6 +25,7 @@
     install tree
     install grep
     install wget
+    install direnv
     install openssh
     install heroku-toolbelt
 

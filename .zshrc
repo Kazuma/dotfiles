@@ -187,3 +187,7 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
   if [ ${TERM} = xterm-256color ]; then
       alias ssh=ssh_tmux
   fi
+
+## Direnv を読み込む
+
+  eval "$(direnv hook zsh)"
