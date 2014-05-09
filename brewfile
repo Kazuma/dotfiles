@@ -19,6 +19,7 @@
 
     install jq
     install git
+    install hub
     install zsh
     install w3m
     install tmux
