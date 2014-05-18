@@ -58,6 +58,7 @@
     cask install limechat
     cask install virtualbox
     cask install google-chrome
+    cask install keyremap4macbook
     cask install google-japanese-ime
 
 ## Old package cleanup
