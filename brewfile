@@ -53,6 +53,7 @@
 
     cask install gyazo
     cask install iterm2
+    cask install licecap
     cask install dropbox
     cask install vagrant
     cask install limechat
