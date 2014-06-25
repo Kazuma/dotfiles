@@ -14,6 +14,7 @@
     tap homebrew/versions
     tap homebrew/dupes
     tap homebrew/binary
+    tap peco/peco
 
 ## Command Line package install
 
@@ -26,6 +27,7 @@
     install tree
     install grep
     install wget
+    install peco
     install direnv
     install openssh
     install heroku-toolbelt
