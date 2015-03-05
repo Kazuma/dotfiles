@@ -38,6 +38,11 @@
     eval "$(rbenv init - zsh)"
   fi
 
+## Golang path configuration
+
+  export GOPATH=$HOME/.go
+  export PATH=$PATH:$GOPATH/bin
+
 ## Bundlizer configuration file
 
   [ -d ~/.bundlizer ] && source ~/.bundlizer/etc/bashrc
