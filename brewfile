@@ -28,6 +28,7 @@
     install grep
     install wget
     install peco
+    install nmap
     install direnv
     install openssh
     install heroku-toolbelt
