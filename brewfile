@@ -31,6 +31,9 @@
     install direnv
     install openssh
     install heroku-toolbelt
+    install libav
+    install libdvdnav
+    install libdvdcss
 
 ### Ruby package install
 
@@ -61,6 +64,7 @@
     cask install limechat
     cask install virtualbox
     cask install imageoptim
+    cask install handbrakecli
     cask install google-chrome
     cask install keyremap4macbook
     cask install google-japanese-ime
