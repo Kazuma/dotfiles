@@ -172,6 +172,7 @@ $CODE_BOTTOM$PROMPT_INPUT_LINE"
       ;;
     darwin*)
       alias ls="ls -F -G"
+      alias diff="diff -u"
       alias safari="open -a Safari"
       alias chrome="open -a Chrome"
       ;;

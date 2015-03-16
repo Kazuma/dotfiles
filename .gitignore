@@ -1,2 +1,4 @@
 .tmux/tmux-powerline
+.tmux/plugins
+.tmux/resurrect
 .vim/plugged
