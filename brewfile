@@ -15,6 +15,7 @@
     tap homebrew/dupes
     tap homebrew/binary
     tap peco/peco
+    tap caskroom/homebrew-fonts
 
 ## Command Line package install
 
@@ -69,6 +70,7 @@
     cask install google-chrome
     cask install keyremap4macbook
     cask install google-japanese-ime
+    cask install font-fontawesome
 
 ## Old package cleanup
 
